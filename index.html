@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Original Mini Product</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JD8WLVT9X"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6JD8WLVT9X');
+    </script>
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for Icons -->
@@ -44,7 +54,7 @@
                 <!-- Search -->
                 <div class="flex-1 max-w-2xl relative">
                     <input type="text" id="search-input" placeholder="Search for products, brands and more..." class="w-full text-black px-4 py-2 rounded-sm focus:outline-none shadow-sm">
-                    <button class="absolute right-0 top-0 h-full px-5 text-brand bg-white border-l hover:bg-gray-100 rounded-r-sm font-semibold">Search</button>
+                    <button id="search-btn-trigger" class="absolute right-0 top-0 h-full px-5 text-brand bg-white border-l hover:bg-gray-100 rounded-r-sm font-semibold">Search</button>
                 </div>
 
                 <!-- Nav Icons -->
@@ -69,16 +79,16 @@
         <!-- Categories Nav -->
         <div class="bg-white shadow-sm border-b overflow-x-auto hide-scrollbar">
             <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between min-w-max text-sm font-semibold text-gray-700">
-                <div class="cursor-pointer hover:text-brand flex items-center gap-1"><i class="fas fa-bars"></i> All Categories</div>
-                <div class="cursor-pointer hover:text-brand" onclick="window.location.hash=''">Home</div>
-                <div class="cursor-pointer hover:text-brand">Electronics</div>
-                <div class="cursor-pointer hover:text-brand">Fashion</div>
-                <div class="cursor-pointer hover:text-brand">Home & Kitchen</div>
-                <div class="cursor-pointer hover:text-brand">Beauty</div>
-                <div class="cursor-pointer hover:text-brand">Toys & Games</div>
-                <div class="cursor-pointer hover:text-brand">Sports</div>
-                <div class="cursor-pointer hover:text-brand">Books</div>
-                <div class="cursor-pointer hover:text-brand text-brand"><i class="fas fa-store"></i> Become a Seller</div>
+                <div class="cursor-pointer hover:text-brand flex items-center gap-1" onclick="filterCategory('')"><i class="fas fa-bars"></i> All Categories</div>
+                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('')">Home</div>
+                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('Mobiles')">Mobiles</div>
+                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('Electronics')">Electronics</div>
+                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('Fashion')">Fashion</div>
+                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('Home & Kitchen')">Home & Kitchen</div>
+                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('Beauty')">Beauty</div>
+                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('Toys & Games')">Toys & Games</div>
+                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('Sports')">Sports</div>
+                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('Books')">Books</div>
             </div>
         </div>
 
@@ -98,36 +108,44 @@
                 </div>
 
                 <!-- Circular Categories -->
-                <div class="flex overflow-x-auto hide-scrollbar gap-4 mb-8 pb-2">
-                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand">
-                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center shadow-sm mb-2"><i class="fas fa-mobile-alt text-2xl text-gray-600"></i></div>
-                        <span class="text-xs font-semibold">Mobiles</span>
+                <div class="flex overflow-x-auto hide-scrollbar gap-6 mb-8 pb-2 items-center justify-start md:justify-center">
+                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand group" onclick="filterCategory('Mobiles')">
+                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center shadow-sm mb-2 group-hover:shadow-md transition"><i class="fas fa-mobile-alt text-2xl text-blue-600"></i></div>
+                        <span class="text-xs font-semibold text-gray-700">Mobiles</span>
                     </div>
-                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand">
-                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center shadow-sm mb-2"><i class="fas fa-headphones text-2xl text-gray-600"></i></div>
-                        <span class="text-xs font-semibold">Electronics</span>
+                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand group" onclick="filterCategory('Electronics')">
+                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center shadow-sm mb-2 group-hover:shadow-md transition"><i class="fas fa-headphones text-2xl text-gray-800"></i></div>
+                        <span class="text-xs font-semibold text-gray-700">Electronics</span>
                     </div>
-                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand">
-                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center shadow-sm mb-2"><i class="fas fa-tshirt text-2xl text-gray-600"></i></div>
-                        <span class="text-xs font-semibold">Fashion</span>
+                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand group" onclick="filterCategory('Fashion')">
+                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center shadow-sm mb-2 group-hover:shadow-md transition"><i class="fas fa-tshirt text-2xl text-indigo-500"></i></div>
+                        <span class="text-xs font-semibold text-gray-700">Fashion</span>
                     </div>
-                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand">
-                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center shadow-sm mb-2"><i class="fas fa-blender text-2xl text-gray-600"></i></div>
-                        <span class="text-xs font-semibold">Home</span>
+                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand group" onclick="filterCategory('Home & Kitchen')">
+                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center shadow-sm mb-2 group-hover:shadow-md transition"><i class="fas fa-blender text-2xl text-gray-600"></i></div>
+                        <span class="text-xs font-semibold text-gray-700">Home</span>
                     </div>
-                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand">
-                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center shadow-sm mb-2"><i class="fas fa-spray-can text-2xl text-gray-600"></i></div>
-                        <span class="text-xs font-semibold">Beauty</span>
+                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand group" onclick="filterCategory('Beauty')">
+                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center shadow-sm mb-2 group-hover:shadow-md transition"><i class="fas fa-spray-can text-2xl text-pink-500"></i></div>
+                        <span class="text-xs font-semibold text-gray-700">Beauty</span>
                     </div>
-                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand">
-                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center shadow-sm mb-2"><i class="fas fa-gamepad text-2xl text-gray-600"></i></div>
-                        <span class="text-xs font-semibold">Toys</span>
+                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand group" onclick="filterCategory('Toys & Games')">
+                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center shadow-sm mb-2 group-hover:shadow-md transition"><i class="fas fa-gamepad text-2xl text-orange-500"></i></div>
+                        <span class="text-xs font-semibold text-gray-700">Toys</span>
+                    </div>
+                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand group" onclick="filterCategory('Sports')">
+                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center shadow-sm mb-2 group-hover:shadow-md transition"><i class="fas fa-futbol text-2xl text-green-600"></i></div>
+                        <span class="text-xs font-semibold text-gray-700">Sports</span>
+                    </div>
+                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand group" onclick="filterCategory('Books')">
+                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center shadow-sm mb-2 group-hover:shadow-md transition"><i class="fas fa-book text-2xl text-purple-600"></i></div>
+                        <span class="text-xs font-semibold text-gray-700">Books</span>
                     </div>
                 </div>
 
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl sm:text-2xl font-bold text-gray-800">Best of Original Mini Product</h2>
-                    <button class="bg-brand text-white px-4 py-1 rounded text-sm font-semibold shadow">View All</button>
+                    <h2 id="home-section-title" class="text-xl sm:text-2xl font-bold text-gray-800">Best of Original Mini Product</h2>
+                    <button class="bg-brand text-white px-4 py-1 rounded text-sm font-semibold shadow" onclick="filterCategory('')">View All</button>
                 </div>
                 
                 <!-- Product Grid -->
@@ -140,7 +158,7 @@
             <!-- PRODUCT DETAILS VIEW -->
             <div id="view-product-details" class="page-view hidden">
                 <div class="bg-white p-4 sm:p-6 rounded shadow-sm flex flex-col md:flex-row gap-8 relative">
-                    <button onclick="window.location.hash=''" class="absolute top-2 right-4 text-gray-400 hover:text-black"><i class="fas fa-times text-2xl"></i></button>
+                    <button onclick="window.history.back()" class="absolute top-2 right-4 text-gray-400 hover:text-black"><i class="fas fa-times text-2xl"></i></button>
                     
                     <!-- Left Images -->
                     <div class="w-full md:w-2/5 flex flex-col gap-4">
@@ -161,16 +179,15 @@
                     <!-- Right Details -->
                     <div class="w-full md:w-3/5 space-y-4">
                         <div class="text-sm text-gray-500 flex gap-2">
-                            <span class="hover:text-brand cursor-pointer">Home</span> > 
+                            <span class="hover:text-brand cursor-pointer" onclick="filterCategory('')">Home</span> > 
                             <span id="pd-category" class="hover:text-brand cursor-pointer uppercase"></span>
                         </div>
                         <h1 id="pd-title" class="text-xl sm:text-2xl font-normal text-gray-800"></h1>
-                        
+                    
                         <!-- Badges & Ratings -->
                         <div class="flex items-center gap-3 text-sm">
-                            <span class="bg-green-600 text-white px-2 py-0.5 rounded font-bold flex items-center gap-1">4.4 <i class="fas fa-star text-xs"></i></span>
-                            <span class="text-gray-500 font-semibold">12,682 Ratings & 2,431 Reviews</span>
-                            <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_62673a.png" class="h-5 ml-2" alt="Assured">
+                            <span id="pd-avg-rating-badge" class="bg-green-600 text-white px-2 py-0.5 rounded font-bold flex items-center gap-1 hidden"><span>0</span> <i class="fas fa-star text-xs"></i></span>
+                            <span id="pd-rating-count-text" class="text-gray-500 font-semibold">No Ratings Yet</span>
                         </div>
 
                         <!-- Price -->
@@ -181,55 +198,44 @@
                         </div>
                         <p class="text-sm text-gray-500">Inclusive of all taxes</p>
 
-                        <div class="flex items-center gap-2 text-sm font-semibold mt-4">
-                            <i class="fas fa-tag text-green-600"></i> Bank Offer: 10% Instant Discount on SBI Credit Cards
-                        </div>
-
                         <!-- Stock Status -->
                         <div id="pd-stock-status" class="font-bold py-2 text-lg"></div>
 
-                        <!-- Highlights -->
-                        <div class="pt-6 mt-6 border-t flex flex-col sm:flex-row gap-6">
-                            <div class="w-full sm:w-1/2">
-                                <h3 class="text-gray-500 font-semibold mb-2">Highlights</h3>
-                                <ul class="list-disc pl-5 text-sm space-y-2 text-gray-800" id="pd-highlights">
-                                    <li>30dB Active Noise Cancellation</li>
-                                    <li>40 Hours Total Playback</li>
-                                    <li>Bluetooth 5.3 Connectivity</li>
-                                    <li>IPX5 Water Resistant</li>
-                                </ul>
-                            </div>
-                            <div class="w-full sm:w-1/2">
-                                <h3 class="text-gray-500 font-semibold mb-2">Description</h3>
-                                <p id="pd-description" class="text-gray-700 text-sm whitespace-pre-wrap"></p>
-                            </div>
+                        <!-- Description -->
+                        <div class="pt-6 mt-6 border-t">
+                            <h3 class="text-gray-500 font-semibold mb-2">Description</h3>
+                            <p id="pd-description" class="text-gray-700 text-sm whitespace-pre-wrap"></p>
                         </div>
 
                         <!-- Reviews Section -->
                         <div class="pt-6 mt-6 border-t">
                             <div class="flex justify-between items-center mb-4">
                                 <h3 class="text-2xl font-bold text-gray-800">Ratings & Reviews</h3>
-                                <button class="bg-white border border-gray-300 shadow-sm px-4 py-2 rounded font-semibold text-sm">Rate Product</button>
+                                <button id="btn-rate-product" class="bg-white border border-gray-300 shadow-sm px-4 py-2 rounded font-semibold text-sm hidden">Rate Product</button>
                             </div>
-                            <div class="flex items-center gap-4 mb-6">
-                                 <div class="text-4xl font-normal">4.4<i class="fas fa-star text-2xl text-gray-300 ml-1"></i></div>
-                                 <div class="text-gray-500 text-sm">12,682 Ratings &<br>2,431 Reviews</div>
+                            
+                            <!-- Review Input Area (Hidden by default) -->
+                            <div id="review-input-area" class="hidden bg-gray-50 p-4 rounded mb-6 border">
+                                <h4 class="font-bold mb-2">Write a Review</h4>
+                                <div class="flex gap-2 mb-2 text-2xl text-gray-300" id="star-rating-input">
+                                    <i class="fas fa-star cursor-pointer hover:text-yellow-400" data-val="1"></i>
+                                    <i class="fas fa-star cursor-pointer hover:text-yellow-400" data-val="2"></i>
+                                    <i class="fas fa-star cursor-pointer hover:text-yellow-400" data-val="3"></i>
+                                    <i class="fas fa-star cursor-pointer hover:text-yellow-400" data-val="4"></i>
+                                    <i class="fas fa-star cursor-pointer hover:text-yellow-400" data-val="5"></i>
+                                </div>
+                                <input type="hidden" id="selected-rating" value="0">
+                                <input type="text" id="review-title" placeholder="Review Title" class="w-full border p-2 mb-2 rounded focus:outline-brand">
+                                <textarea id="review-text" rows="3" placeholder="Description" class="w-full border p-2 mb-2 rounded focus:outline-brand"></textarea>
+                                <div class="flex gap-2">
+                                    <button id="submit-review-btn" class="bg-brand text-white px-4 py-2 rounded font-bold shadow">Submit</button>
+                                    <button onclick="document.getElementById('review-input-area').classList.add('hidden')" class="bg-gray-300 px-4 py-2 rounded font-bold">Cancel</button>
+                                </div>
                             </div>
-                            <div class="space-y-4">
-                                 <div class="border-b pb-4">
-                                     <div class="flex items-center gap-2 mb-2"><span class="bg-green-600 text-white px-2 py-0.5 rounded text-xs font-bold flex items-center gap-1">5 <i class="fas fa-star text-[10px]"></i></span> <span class="font-bold text-sm">Awesome Product!</span></div>
-                                     <p class="text-gray-800 text-sm">Really loved the build quality and sound. Highly recommended for this price range.</p>
-                                     <div class="flex items-center gap-2 mt-2 text-xs text-gray-400 font-semibold">
-                                        <span>John Doe</span> <i class="fas fa-check-circle text-gray-300"></i> <span>Certified Buyer</span> <span>2 days ago</span>
-                                     </div>
-                                 </div>
-                                 <div class="border-b pb-4">
-                                     <div class="flex items-center gap-2 mb-2"><span class="bg-green-600 text-white px-2 py-0.5 rounded text-xs font-bold flex items-center gap-1">4 <i class="fas fa-star text-[10px]"></i></span> <span class="font-bold text-sm">Value for money</span></div>
-                                     <p class="text-gray-800 text-sm">Bass is good. ANC works fine indoors. Battery backup is amazing.</p>
-                                     <div class="flex items-center gap-2 mt-2 text-xs text-gray-400 font-semibold">
-                                        <span>Amit Singh</span> <i class="fas fa-check-circle text-gray-300"></i> <span>Certified Buyer</span> <span>1 week ago</span>
-                                     </div>
-                                 </div>
+
+                            <div id="pd-reviews-list" class="space-y-4">
+                                 <!-- Dynamic reviews will load here -->
+                                 <p class="text-gray-500 text-sm">Loading reviews...</p>
                             </div>
                         </div>
 
@@ -396,7 +402,7 @@
                 <h2 class="text-xl font-bold mb-4 text-red-600"><i class="fas fa-user-shield"></i> Admin Login</h2>
                 <input type="password" id="admin-pass-input" placeholder="Enter Password" class="w-full border p-2 mb-4 rounded focus:outline-blue-500">
                 <button id="admin-login-btn" class="bg-blue-600 text-white w-full py-2 rounded font-bold hover:bg-blue-700">Login</button>
-                <button onclick="window.location.hash=''" class="mt-4 text-sm text-gray-500 hover:text-black underline">Return to Store</button>
+                <button onclick="window.location.hash='#home'" class="mt-4 text-sm text-gray-500 hover:text-black underline">Return to Store</button>
             </div>
         </div>
 
@@ -429,8 +435,22 @@
                         <h3 id="form-title" class="text-xl font-bold mb-4 border-b pb-2">Add New Product</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <input type="hidden" id="prod-id">
-                            <div><label class="block text-sm font-bold text-gray-700">Product Name</label><input type="text" id="prod-name" class="w-full border p-2 rounded focus:outline-blue-500"></div>
-                            <div><label class="block text-sm font-bold text-gray-700">Category</label><input type="text" id="prod-category" class="w-full border p-2 rounded focus:outline-blue-500" placeholder="e.g. Electronics, Fashion"></div>
+                            <div><label class="block text-sm font-bold text-gray-700">Product Name</label><input type="text" id="prod-name" class="w-full border p-2 rounded focus:outline-blue-500" required></div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700">Category</label>
+                                <select id="prod-category" class="w-full border p-2 rounded focus:outline-blue-500" required>
+                                    <option value="" disabled selected>--Select Category--</option>
+                                    <option value="Mobiles">Mobiles</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Fashion">Fashion</option>
+                                    <option value="Home & Kitchen">Home & Kitchen</option>
+                                    <option value="Beauty">Beauty</option>
+                                    <option value="Toys & Games">Toys & Games</option>
+                                    <option value="Sports">Sports</option>
+                                    <option value="Books">Books</option>
+                                    <option value="More">More</option>
+                                </select>
+                            </div>
                             <div>
                                 <label class="block text-sm font-bold text-gray-700">MRP (Fake Price)</label>
                                 <input type="number" id="prod-fake-price" class="w-full border p-2 rounded focus:outline-blue-500">
@@ -566,6 +586,11 @@
         let currentUser = null;
         let siteSettings = { logo: '', banners: [] };
         
+        // New State for Filtering/Searching
+        let currentCategoryFilter = '';
+        let currentSearchQuery = '';
+        let currentViewedProductId = null;
+
         // Base64 Converter
         const fileToBase64 = (file) => {
             return new Promise((resolve) => {
@@ -606,6 +631,8 @@
         window.deleteProduct = deleteProduct;
         window.updateOrderStatus = updateOrderStatus;
         window.addToCart = addToCart;
+        window.filterCategory = filterCategory;
+        window.cancelOrder = cancelOrder;
 
         // Router
         function handleRouting() {
@@ -624,7 +651,8 @@
                 
                 if (hash.startsWith('#product-')) {
                     E('view-product-details').classList.remove('hidden');
-                    renderProductDetails(hash.split('-')[1]);
+                    currentViewedProductId = hash.split('-')[1];
+                    renderProductDetails(currentViewedProductId);
                     window.scrollTo(0,0);
                 } else if (hash === '#cart') {
                     E('view-cart').classList.remove('hidden');
@@ -639,13 +667,15 @@
                     E('view-orders').classList.remove('hidden');
                     renderUserOrders();
                 } else {
+                    // Default view is Home (#home or empty hash)
                     E('view-home').classList.remove('hidden');
+                    renderHomeProducts(); 
                 }
             }
         }
         window.addEventListener('hashchange', handleRouting);
 
-        // Logo click logic (20 times for Admin)
+        // Logo click logic (20 times for Admin, normally goes home)
         let logoClickCount = 0;
         E('logo-container').onclick = () => {
             logoClickCount++;
@@ -653,7 +683,8 @@
                 logoClickCount = 0;
                 window.location.hash = '#OMP-admin';
             } else {
-                window.location.hash = ''; // Always navigates home on normal click
+                window.location.hash = '#home'; 
+                filterCategory(''); // Reset filters on logo click
             }
         };
 
@@ -709,6 +740,27 @@
                 renderBanners();
             }
         });
+        
+        // Search functionality
+        const searchInput = E('search-input');
+        const searchBtn = E('search-btn-trigger');
+        
+        function handleSearch() {
+            currentSearchQuery = searchInput.value.trim().toLowerCase();
+            window.location.hash = '#home'; // Go to home to show results
+            renderHomeProducts();
+        }
+        
+        searchBtn.onclick = handleSearch;
+        searchInput.onkeypress = (e) => { if(e.key === 'Enter') handleSearch(); };
+
+        function filterCategory(cat) {
+            currentCategoryFilter = cat;
+            currentSearchQuery = ''; // Clear search when category is clicked
+            searchInput.value = '';
+            window.location.hash = '#home'; // Ensure we are on home view
+            renderHomeProducts();
+        }
 
         onSnapshot(collection(db, "products"), (snapshot) => {
             products = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
@@ -734,11 +786,30 @@
 
         function renderHomeProducts() {
             const grid = E('product-grid');
-            if(products.length === 0) {
-                grid.innerHTML = '<p class="col-span-full text-center py-10">No products found.</p>';
+            const title = E('home-section-title');
+            
+            // Apply Filters
+            let filteredProducts = products;
+            
+            if (currentCategoryFilter) {
+                filteredProducts = filteredProducts.filter(p => p.category === currentCategoryFilter);
+                title.innerText = `${currentCategoryFilter} Products`;
+            } else if (currentSearchQuery) {
+                 filteredProducts = filteredProducts.filter(p => 
+                    p.name.toLowerCase().includes(currentSearchQuery) || 
+                    (p.category && p.category.toLowerCase().includes(currentSearchQuery)) ||
+                    (p.description && p.description.toLowerCase().includes(currentSearchQuery))
+                );
+                title.innerText = `Search Results for "${currentSearchQuery}"`;
+            } else {
+                title.innerText = "Best of Original Mini Product";
+            }
+            
+            if(filteredProducts.length === 0) {
+                grid.innerHTML = '<div class="col-span-full flex flex-col items-center justify-center py-16"><i class="fas fa-box-open text-4xl text-gray-300 mb-4"></i><p class="text-xl font-bold text-gray-500">No products found.</p><p class="text-gray-400 mt-2">Try adjusting your filters or search.</p></div>';
                 return;
             }
-            grid.innerHTML = products.map(p => {
+            grid.innerHTML = filteredProducts.map(p => {
                 const img = p.images && p.images.length > 0 ? p.images[0] : 'https://via.placeholder.com/200';
                 const isWished = wishlist.includes(p.id);
                 return `
@@ -771,7 +842,7 @@
 
         function renderProductDetails(id) {
             const p = products.find(x => x.id === id);
-            if(!p) { window.history.back(); return; }
+            if(!p) { return; }
 
             E('pd-category').innerText = p.category || '';
             E('pd-title').innerText = p.name;
@@ -824,7 +895,142 @@
             // Add Actions
             btnCart.onclick = () => { addToCart(p.id); alert("Added to Cart successfully!"); };
             btnBuy.onclick = () => { addToCart(p.id); window.location.hash = '#cart'; };
+            
+            // Load Reviews
+            loadReviews(p.id);
         }
+        
+        let productReviewsUnsub = null;
+        async function loadReviews(productId) {
+            if(productReviewsUnsub) productReviewsUnsub();
+            
+            const reviewsRef = collection(db, "products", productId, "reviews");
+            productReviewsUnsub = onSnapshot(reviewsRef, (snap) => {
+                let reviews = snap.docs.map(d => ({id: d.id, ...d.data()})).sort((a,b) => b.date - a.date);
+                
+                // Add a default 5-star review so it is never empty as requested
+                const defaultReview = {
+                    rating: 5,
+                    title: "Excellent Product!",
+                    text: "Very satisfied with the quality and delivery. 100% recommended.",
+                    userName: "Verified Customer",
+                    verified: true,
+                    date: Date.now() - (86400000 * 2) // 2 days ago
+                };
+                
+                reviews = [...reviews, defaultReview]; // Append default
+                
+                renderReviewsList(reviews);
+                checkIfCanReview(productId); // Check if user bought it
+            });
+        }
+        
+        function renderReviewsList(reviews) {
+            const list = E('pd-reviews-list');
+            const avgBadge = E('pd-avg-rating-badge');
+            const countText = E('pd-rating-count-text');
+            
+            let totalRating = 0;
+            reviews.forEach(r => totalRating += r.rating);
+            const avg = (totalRating / reviews.length).toFixed(1);
+            
+            avgBadge.classList.remove('hidden');
+            avgBadge.querySelector('span').innerText = avg;
+            countText.innerText = `${reviews.length} Ratings & Reviews`;
+
+            list.innerHTML = reviews.map(r => `
+                 <div class="border-b pb-4">
+                     <div class="flex items-center gap-2 mb-2"><span class="bg-${r.rating>=3?'green':'red'}-600 text-white px-2 py-0.5 rounded text-xs font-bold flex items-center gap-1">${r.rating} <i class="fas fa-star text-[10px]"></i></span> <span class="font-bold text-sm">${r.title || ''}</span></div>
+                     <p class="text-gray-800 text-sm">${r.text || ''}</p>
+                     <div class="flex items-center gap-2 mt-2 text-xs text-gray-400 font-semibold">
+                        <span>${r.userName || 'Anonymous'}</span> ${r.verified ? '<i class="fas fa-check-circle text-green-500" title="Certified Buyer"></i> <span title="Certified Buyer">Certified Buyer</span>' : ''} <span>${new Date(r.date).toLocaleDateString()}</span>
+                     </div>
+                 </div>
+            `).join('');
+        }
+        
+        async function checkIfCanReview(productId) {
+            const rateBtn = E('btn-rate-product');
+            rateBtn.classList.add('hidden');
+            if(!currentUser) return;
+
+            // Check if user has an order containing this product
+            const ordersRef = collection(db, "orders");
+            const q = query(ordersRef); 
+            
+            try {
+                const snap = await getDocs(q);
+                let hasBought = false;
+                snap.docs.forEach(doc => {
+                    const order = doc.data();
+                    if(order.userId === currentUser.uid && order.items.some(i => i.pid === productId)) {
+                        hasBought = true;
+                    }
+                });
+                
+                if(hasBought) {
+                    rateBtn.classList.remove('hidden');
+                }
+            } catch (e) {
+                console.error("Error checking orders:", e);
+            }
+        }
+        
+        // Star Rating Logic
+        const stars = document.querySelectorAll('#star-rating-input i');
+        stars.forEach(star => {
+            star.onclick = (e) => {
+                const val = parseInt(e.target.dataset.val);
+                E('selected-rating').value = val;
+                stars.forEach(s => {
+                    if(parseInt(s.dataset.val) <= val) {
+                        s.classList.remove('text-gray-300');
+                        s.classList.add('text-yellow-400');
+                    } else {
+                        s.classList.add('text-gray-300');
+                        s.classList.remove('text-yellow-400');
+                    }
+                });
+            }
+        });
+
+        E('btn-rate-product').onclick = () => {
+            E('review-input-area').classList.remove('hidden');
+        };
+
+        E('submit-review-btn').onclick = async () => {
+            if(!currentUser || !currentViewedProductId) return;
+            const rating = parseInt(E('selected-rating').value);
+            const title = E('review-title').value.trim();
+            const text = E('review-text').value.trim();
+            
+            if(rating === 0) return alert("Please select a star rating.");
+            
+            try {
+                E('submit-review-btn').innerText = "Submitting...";
+                await addDoc(collection(db, "products", currentViewedProductId, "reviews"), {
+                    userId: currentUser.uid,
+                    userName: currentUser.displayName || currentUser.email.split('@')[0],
+                    rating: rating,
+                    title: title,
+                    text: text,
+                    date: Date.now(),
+                    verified: true 
+                });
+                
+                E('review-input-area').classList.add('hidden');
+                // Reset form
+                E('selected-rating').value = 0;
+                E('review-title').value = '';
+                E('review-text').value = '';
+                stars.forEach(s => { s.classList.add('text-gray-300'); s.classList.remove('text-yellow-400'); });
+                alert("Review submitted successfully!");
+            } catch(e) {
+                alert("Error submitting review: " + e.message);
+            } finally {
+                E('submit-review-btn').innerText = "Submit";
+            }
+        };
 
         // ==================== CART & WISHLIST LOGIC ====================
         function toggleWishlist(pid) {
@@ -836,7 +1042,6 @@
             }
             saveUserData();
             
-            // Re-render UI components silently based on state
             renderHomeProducts();
             if(window.location.hash.startsWith('#product-')) renderProductDetails(pid);
             if(window.location.hash === '#wishlist') renderWishlist();
@@ -848,7 +1053,7 @@
             const items = products.filter(p => wishlist.includes(p.id));
             
             if(items.length === 0) { 
-                grid.innerHTML = '<div class="p-10 text-center text-gray-500 flex flex-col items-center"><img src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/mywishlist-empty_39f7a5.png" class="w-40 mb-4"><p class="text-lg font-bold">Empty Wishlist</p><p class="mb-4">You have no items in your wishlist. Start adding!</p></div>'; 
+                grid.innerHTML = '<div class="p-10 text-center text-gray-500 flex flex-col items-center"><div class="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mb-4"><i class="far fa-heart text-5xl text-gray-300"></i></div><p class="text-lg font-bold">Empty Wishlist</p><p class="mb-4">You have no items in your wishlist. Start adding!</p></div>'; 
                 return; 
             }
 
@@ -902,7 +1107,7 @@
         function renderCart() {
             const container = E('cart-items');
             if(cart.length === 0) {
-                container.innerHTML = '<div class="p-10 text-center text-gray-500 flex flex-col items-center"><img src="https://rukminim2.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" class="w-48 mb-4"><p class="text-lg font-bold">Your cart is empty!</p><p class="mb-4">Add items to it now.</p><button onclick="window.location.hash=\'\'" class="bg-brand text-white px-8 py-2 rounded shadow">Shop Now</button></div>';
+                container.innerHTML = '<div class="p-10 text-center text-gray-500 flex flex-col items-center"><i class="fas fa-shopping-cart text-6xl text-gray-200 mb-4"></i><p class="text-lg font-bold">Your cart is empty!</p><p class="mb-4">Add items to it now.</p><button onclick="window.location.hash=\'#home\'" class="bg-brand text-white px-8 py-2 rounded shadow">Shop Now</button></div>';
                 E('cart-total-fake').innerText = '₹0';
                 E('cart-total-discount').innerText = '-₹0';
                 E('cart-total-real').innerText = '₹0';
@@ -917,7 +1122,7 @@
             let totalItems = 0;
             container.innerHTML = cart.map(item => {
                 const p = products.find(x => x.id === item.pid);
-                if(!p) return ''; // Product deleted from db
+                if(!p) return ''; 
                 fakeTotal += p.fakePrice * item.qty;
                 realTotal += p.realPrice * item.qty;
                 totalItems += item.qty;
@@ -1048,7 +1253,6 @@
             if(!currentUser) return;
             if(userOrdersUnsubscribe) userOrdersUnsubscribe();
             
-            // Simple query without complex indexes, filter in JS as per instructions
             userOrdersUnsubscribe = onSnapshot(collection(db, "orders"), (snap) => {
                 const allOrders = snap.docs.map(d=>({id: d.id, ...d.data()}));
                 const myOrders = allOrders
@@ -1068,14 +1272,16 @@
                                 <div class="font-bold text-gray-800">Order ID: <span class="font-normal font-mono text-sm">${o.id}</span></div>
                                 <div class="text-sm text-gray-500">Placed on ${new Date(o.date).toLocaleDateString()}</div>
                             </div>
-                            <div class="text-right">
+                            <div class="text-right flex flex-col items-end">
                                 <div class="font-bold text-lg">Total: ₹${o.total}</div>
                                 <span class="inline-block mt-1 px-3 py-1 rounded text-xs font-bold uppercase tracking-wider ${
                                     o.status === 'Pending' ? 'bg-orange-100 text-orange-800' :
                                     o.status === 'Shipped' ? 'bg-blue-100 text-blue-800' :
+                                    o.status === 'Cancelled' ? 'bg-red-100 text-red-800' :
                                     o.status === 'Out for Delivery' ? 'bg-purple-100 text-purple-800' :
                                     'bg-green-100 text-green-800'
                                 }">${o.status}</span>
+                                ${o.status === 'Pending' ? `<button onclick="cancelOrder('${o.id}')" class="text-red-600 hover:text-red-800 font-bold text-sm mt-2"><i class="fas fa-times-circle"></i> Cancel Order</button>` : ''}
                             </div>
                         </div>
                         <div class="space-y-4">
@@ -1095,6 +1301,17 @@
                     </div>
                 `).join('');
             });
+        }
+        
+        async function cancelOrder(oid) {
+            if(confirm("Are you sure you want to cancel this order?")) {
+                try {
+                    await updateDoc(doc(db, "orders", oid), { status: 'Cancelled' });
+                    alert("Order cancelled successfully.");
+                } catch(e) {
+                    alert("Error cancelling order: " + e.message);
+                }
+            }
         }
 
 
@@ -1174,7 +1391,7 @@
 
         E('admin-logout-btn').onclick = () => {
             adminAuthOk = false;
-            window.location.hash = '';
+            window.location.hash = '#home';
         };
 
         // Admin Tabs
@@ -1215,12 +1432,16 @@
             const id = E('prod-id').value;
             const fake = parseFloat(E('prod-fake-price').value) || 0;
             const real = parseFloat(E('prod-real-price').value) || 0;
+            const cat = E('prod-category').value;
+            
+            if(!cat) return alert("Please select a category!");
+
             let discount = 0;
             if(fake > real && fake > 0) discount = Math.round(((fake - real) / fake) * 100);
 
             const data = {
                 name: E('prod-name').value,
-                category: E('prod-category').value,
+                category: cat,
                 fakePrice: fake,
                 realPrice: real,
                 discount: discount,
@@ -1324,6 +1545,7 @@
                 <div class="bg-white p-5 rounded shadow-sm border-l-4 ${
                     o.status==='Delivered'?'border-green-500':
                     o.status==='Shipped'?'border-blue-500':
+                    o.status==='Cancelled'?'border-red-500':
                     o.status==='Out for Delivery'?'border-purple-500':
                     'border-orange-500'
                 }">
@@ -1348,6 +1570,7 @@
                             <select onchange="updateOrderStatus('${o.id}', this.value)" class="border p-2 font-bold rounded shadow-sm focus:outline-none ${
                                 o.status==='Pending'?'bg-orange-50 text-orange-700 border-orange-200':
                                 o.status==='Shipped'?'bg-blue-50 text-blue-700 border-blue-200':
+                                o.status==='Cancelled'?'bg-red-50 text-red-700 border-red-200':
                                 o.status==='Out for Delivery'?'bg-purple-50 text-purple-700 border-purple-200':
                                 'bg-green-50 text-green-700 border-green-200'
                             }">
@@ -1355,6 +1578,7 @@
                                 <option value="Shipped" ${o.status==='Shipped'?'selected':''}>Shipped</option>
                                 <option value="Out for Delivery" ${o.status==='Out for Delivery'?'selected':''}>Out for Delivery</option>
                                 <option value="Delivered" ${o.status==='Delivered'?'selected':''}>Delivered</option>
+                                <option value="Cancelled" ${o.status==='Cancelled'?'selected':''}>Cancelled</option>
                             </select>
                         </div>
                     </div>
