@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta name="google-site-verification" content="A3YscfPvnnSfCjse1ACpH9P88P5xjVfPvzUh8xrGt4U" /> <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Original Mini Product</title>
+    <title>Original Mini Product | Best Online Store for Mobiles, Electronics & Fashion</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Shop the best original mini products, mobiles, electronics, fashion, and home appliances at unbeatable prices. Top deals and verified quality.">
+    <meta name="keywords" content="original mini product, online shopping, buy mobiles online, best electronics, fashion, deals, discount">
+    <meta name="robots" content="index, follow">
     
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JD8WLVT9X"></script>
@@ -36,6 +41,9 @@
         /* Custom Brand Color */
         .bg-brand { background-color: #2874f0; }
         .text-brand { color: #2874f0; }
+
+        /* Modal Styles */
+        .modal-overlay { background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(2px); z-index: 200; }
     </style>
 </head>
 <body>
@@ -275,10 +283,11 @@
                 <div class="bg-white rounded shadow-sm overflow-hidden">
                     <div class="bg-brand text-white p-4 flex items-center gap-3">
                         <span class="bg-white text-brand w-6 h-6 rounded flex items-center justify-center font-bold text-sm">1</span>
-                        <h2 class="text-lg font-bold">DELIVERY ADDRESS</h2>
+                        <h2 class="text-lg font-bold">DELIVERY & PAYMENT</h2>
                     </div>
                     <div class="p-6">
                         <form id="checkout-form" class="space-y-4">
+                            <!-- Address Input -->
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div><input type="text" id="chk-fname" placeholder="First Name" required class="w-full border rounded p-3 focus:outline-brand"></div>
                                 <div><input type="text" id="chk-lname" placeholder="Last Name" required class="w-full border rounded p-3 focus:outline-brand"></div>
@@ -295,35 +304,18 @@
                                         <option value="Bihar">Bihar</option>
                                         <option value="Chandigarh">Chandigarh</option>
                                         <option value="Chhattisgarh">Chhattisgarh</option>
-                                        <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
-                                        <option value="Daman and Diu">Daman and Diu</option>
                                         <option value="Delhi">Delhi</option>
                                         <option value="Goa">Goa</option>
                                         <option value="Gujarat">Gujarat</option>
                                         <option value="Haryana">Haryana</option>
-                                        <option value="Himachal Pradesh">Himachal Pradesh</option>
-                                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                                        <option value="Jharkhand">Jharkhand</option>
                                         <option value="Karnataka">Karnataka</option>
                                         <option value="Kerala">Kerala</option>
-                                        <option value="Ladakh">Ladakh</option>
-                                        <option value="Lakshadweep">Lakshadweep</option>
-                                        <option value="Madhya Pradesh">Madhya Pradesh</option>
                                         <option value="Maharashtra">Maharashtra</option>
-                                        <option value="Manipur">Manipur</option>
-                                        <option value="Meghalaya">Meghalaya</option>
-                                        <option value="Mizoram">Mizoram</option>
-                                        <option value="Nagaland">Nagaland</option>
-                                        <option value="Odisha">Odisha</option>
-                                        <option value="Puducherry">Puducherry</option>
                                         <option value="Punjab">Punjab</option>
                                         <option value="Rajasthan">Rajasthan</option>
-                                        <option value="Sikkim">Sikkim</option>
                                         <option value="Tamil Nadu">Tamil Nadu</option>
                                         <option value="Telangana">Telangana</option>
-                                        <option value="Tripura">Tripura</option>
                                         <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                        <option value="Uttarakhand">Uttarakhand</option>
                                         <option value="West Bengal">West Bengal</option>
                                     </select>
                                 </div>
@@ -341,9 +333,43 @@
                                 <label for="chk-save-address" class="font-semibold text-gray-700">Save this address for future orders</label>
                             </div>
 
+                            <!-- Payment Options -->
+                            <div class="pt-4 border-t mt-4">
+                                <h3 class="font-bold text-lg mb-3">Select Payment Method</h3>
+                                <div class="flex flex-col sm:flex-row gap-4">
+                                    <label class="flex items-center gap-2 p-4 border rounded cursor-pointer hover:bg-gray-50 flex-1">
+                                        <input type="radio" name="payment_method" value="cod" checked class="w-5 h-5 text-brand" onchange="togglePaymentUI()">
+                                        <span class="font-bold">Cash on Delivery (COD)</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 p-4 border rounded cursor-pointer hover:bg-gray-50 flex-1">
+                                        <input type="radio" name="payment_method" value="online" class="w-5 h-5 text-brand" onchange="togglePaymentUI()">
+                                        <span class="font-bold text-green-600">Online Payment (UPI)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Online Payment Details (Hidden by Default) -->
+                            <div id="online-payment-section" class="hidden mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                                <h4 class="font-bold text-blue-800 mb-2 text-lg"><i class="fas fa-qrcode"></i> Scan & Pay</h4>
+                                <p class="text-sm text-gray-700 mb-4">Please pay <span id="pay-amount-display" class="font-bold text-lg text-black">₹0</span> to the UPI ID below, then upload the screenshot.</p>
+                                
+                                <div class="bg-white p-4 rounded shadow-sm flex flex-col items-center gap-3 border">
+                                    <div class="text-center font-mono font-bold text-lg p-2 border-dashed border-2 border-gray-300 w-full rounded bg-gray-50">
+                                        UPI ID: <span id="admin-upi-display" class="text-blue-600 user-select-all">Loading...</span>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <label class="block font-bold text-gray-700 text-sm mb-2">Upload Payment Screenshot <span class="text-red-500">*</span></label>
+                                    <input type="file" id="payment-screenshot" accept="image/*" class="w-full border p-2 bg-white rounded focus:outline-brand">
+                                    <p class="text-xs text-gray-500 mt-1"><i class="fas fa-info-circle"></i> AI will verify the UPI ID and amount from your screenshot automatically.</p>
+                                </div>
+                                <div id="ai-verify-status" class="hidden mt-2 p-2 rounded text-sm font-bold text-center"></div>
+                            </div>
+
                             <div class="pt-6 mt-4 border-t flex flex-col sm:flex-row justify-between items-center gap-4">
                                 <div class="font-bold text-xl">Total Amount: <span id="chk-amount" class="text-black">₹0</span></div>
-                                <button type="submit" class="w-full sm:w-auto bg-[#fb641b] text-white font-bold py-3 px-10 rounded shadow text-lg hover:bg-orange-600">CONFIRM ORDER</button>
+                                <button type="submit" id="btn-confirm-order" class="w-full sm:w-auto bg-[#fb641b] text-white font-bold py-3 px-10 rounded shadow text-lg hover:bg-orange-600">CONFIRM ORDER</button>
                             </div>
                         </form>
                     </div>
@@ -377,7 +403,7 @@
             <button id="chat-toggle-btn" class="bg-brand text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-2xl hover:bg-blue-700 transition">
                 <i class="fas fa-comment-dots"></i>
             </button>
-            <div id="chat-widget" class="absolute bottom-16 right-0 w-80 bg-white rounded-lg shadow-2xl border flex flex-col chat-closed h-96 overflow-hidden">
+            <div id="chat-widget" class="absolute bottom-16 right-0 w-[90vw] sm:w-80 bg-white rounded-lg shadow-2xl border flex flex-col chat-closed h-96 overflow-hidden">
                 <div class="bg-brand text-white p-3 font-bold flex justify-between items-center">
                     <div class="flex items-center gap-2"><i class="fas fa-headset text-xl"></i> Help Support</div>
                     <button id="chat-close-btn" class="text-white hover:text-gray-200 text-xl"><i class="fas fa-times"></i></button>
@@ -385,6 +411,7 @@
                 <div id="chat-messages" class="flex-1 p-3 overflow-y-auto bg-gray-50 flex flex-col gap-2 text-sm">
                     <div class="self-start bg-white border text-black px-3 py-2 rounded-lg rounded-tl-none shadow-sm max-w-[80%]">Hello! How can we help you today?</div>
                 </div>
+                <div id="chat-typing-indicator" class="hidden text-xs text-gray-400 italic px-4 pb-1 bg-gray-50">AI is typing...</div>
                 <div class="p-2 border-t bg-gray-100 flex gap-2">
                     <input type="text" id="chat-input" placeholder="Type a message..." class="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-brand">
                     <button id="chat-send-btn" class="bg-brand text-white w-10 h-10 rounded-full hover:bg-blue-700 shadow flex items-center justify-center"><i class="fas fa-paper-plane"></i></button>
@@ -407,26 +434,29 @@
         </div>
 
         <!-- Admin Dashboard -->
-        <div id="admin-dashboard" class="hidden flex-1 flex">
+        <div id="admin-dashboard" class="hidden flex-1 flex flex-col md:flex-row">
             <!-- Sidebar -->
-            <div class="w-64 bg-gray-900 text-white flex flex-col">
-                <div class="p-5 border-b border-gray-700 text-center font-bold text-xl tracking-wider">OMP ADMIN</div>
-                <div class="flex-1 py-4 flex flex-col gap-1 px-2">
+            <div class="w-full md:w-64 bg-gray-900 text-white flex flex-col h-auto md:h-screen sticky top-0">
+                <div class="p-5 border-b border-gray-700 text-center font-bold text-xl tracking-wider flex justify-between items-center">
+                    OMP ADMIN
+                    <button onclick="window.location.hash='#home'" class="md:hidden bg-gray-700 p-2 rounded text-sm"><i class="fas fa-store"></i></button>
+                </div>
+                <div class="flex-1 py-4 flex flex-col gap-1 px-2 overflow-y-auto">
                     <button class="admin-tab-btn active text-left px-4 py-3 rounded hover:bg-gray-800 transition" data-target="admin-products"><i class="fas fa-box w-6"></i> Products</button>
                     <button class="admin-tab-btn text-left px-4 py-3 rounded hover:bg-gray-800 transition" data-target="admin-orders"><i class="fas fa-shopping-bag w-6"></i> Orders</button>
                     <button class="admin-tab-btn text-left px-4 py-3 rounded hover:bg-gray-800 transition" data-target="admin-settings"><i class="fas fa-cog w-6"></i> Settings</button>
-                    <button class="admin-tab-btn text-left px-4 py-3 rounded hover:bg-gray-800 transition" data-target="admin-chats"><i class="fas fa-comments w-6"></i> User Chats</button>
+                    <button class="admin-tab-btn text-left px-4 py-3 rounded hover:bg-gray-800 transition" data-target="admin-chats"><i class="fas fa-comments w-6"></i> User Chats & AI</button>
                 </div>
-                <button id="admin-logout-btn" class="p-4 border-t border-gray-700 text-left hover:bg-red-600 transition"><i class="fas fa-sign-out-alt w-6"></i> Logout</button>
+                <button id="admin-logout-btn" class="p-4 border-t border-gray-700 text-left hover:bg-red-600 transition hidden md:block"><i class="fas fa-sign-out-alt w-6"></i> Logout</button>
             </div>
 
             <!-- Content Area -->
-            <div class="flex-1 p-6 overflow-y-auto">
+            <div class="flex-1 p-4 md:p-6 overflow-y-auto h-screen w-full">
                 
                 <!-- Products Tab -->
                 <div id="admin-products" class="admin-tab-content">
                     <div class="flex justify-between items-center mb-6 bg-white p-4 rounded shadow-sm border-l-4 border-blue-500">
-                        <h2 class="text-2xl font-bold text-gray-800">Manage Products</h2>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-800">Manage Products</h2>
                         <button id="btn-open-add-product" class="bg-blue-600 text-white px-4 py-2 rounded font-bold shadow hover:bg-blue-700"><i class="fas fa-plus"></i> Add Product</button>
                     </div>
 
@@ -481,8 +511,8 @@
                     </div>
 
                     <!-- Products Table -->
-                    <div class="bg-white rounded shadow-sm overflow-hidden">
-                        <table class="w-full text-left border-collapse">
+                    <div class="bg-white rounded shadow-sm overflow-x-auto">
+                        <table class="w-full text-left border-collapse min-w-[600px]">
                             <thead class="bg-gray-100 border-b">
                                 <tr>
                                     <th class="p-3 font-semibold text-gray-600">Image</th>
@@ -502,7 +532,7 @@
                 <!-- Orders Tab -->
                 <div id="admin-orders" class="admin-tab-content hidden">
                     <div class="bg-white p-4 rounded shadow-sm border-l-4 border-purple-500 mb-6">
-                        <h2 class="text-2xl font-bold text-gray-800">Manage Customer Orders</h2>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-800">Manage Customer Orders</h2>
                     </div>
                     <div id="admin-order-list" class="space-y-4">
                         <!-- Orders -->
@@ -513,11 +543,22 @@
                 <!-- Settings Tab -->
                 <div id="admin-settings" class="admin-tab-content hidden">
                     <div class="bg-white p-4 rounded shadow-sm border-l-4 border-gray-500 mb-6">
-                        <h2 class="text-2xl font-bold text-gray-800">Website Settings</h2>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-800">Website Settings</h2>
                     </div>
+                    
+                    <!-- UPI Settings for Payment -->
+                    <div class="bg-white p-6 rounded shadow-sm mb-6 border border-green-200">
+                        <h3 class="font-bold mb-3 text-lg border-b pb-2 text-green-700"><i class="fas fa-rupee-sign"></i> Online Payment Settings (UPI)</h3>
+                        <div class="flex flex-col gap-3 max-w-md">
+                            <label class="text-sm font-bold text-gray-600">Admin UPI ID (Required for Online Payments)</label>
+                            <input type="text" id="setting-upi-id" placeholder="e.g. 9876543210@ybl" class="border p-2 w-full rounded focus:outline-green-500 bg-gray-50">
+                            <button id="save-upi-btn" class="bg-green-600 text-white px-6 py-2 rounded font-bold hover:bg-green-700 shadow w-fit">Update UPI ID</button>
+                        </div>
+                    </div>
+
                     <div class="bg-white p-6 rounded shadow-sm mb-6 border">
                         <h3 class="font-bold mb-3 text-lg border-b pb-2">Change Site Logo</h3>
-                        <div class="flex items-center gap-4">
+                        <div class="flex flex-col sm:flex-row items-center gap-4">
                             <input type="file" id="setting-logo" accept="image/*" class="border p-2 w-full max-w-md bg-gray-50 rounded">
                             <button id="save-logo-btn" class="bg-blue-600 text-white px-6 py-2 rounded font-bold hover:bg-blue-700 shadow">Update Logo</button>
                         </div>
@@ -533,13 +574,22 @@
                 <!-- Chats Tab -->
                 <div id="admin-chats" class="admin-tab-content hidden h-[80vh] flex flex-col bg-white rounded shadow-sm border">
                     <h2 class="text-xl font-bold p-4 border-b bg-gray-50">Customer Support Messages</h2>
-                    <div class="flex flex-1 overflow-hidden">
+                    <div class="flex flex-1 overflow-hidden flex-col md:flex-row">
                         <!-- User List -->
-                        <div id="admin-chat-users" class="w-1/3 border-r overflow-y-auto bg-white divide-y">
+                        <div id="admin-chat-users" class="w-full md:w-1/3 border-r overflow-y-auto bg-white divide-y max-h-40 md:max-h-full">
                             <!-- Users list -->
                         </div>
                         <!-- Chat Box -->
-                        <div class="w-2/3 flex flex-col bg-gray-50">
+                        <div class="w-full md:w-2/3 flex flex-col bg-gray-50 h-full">
+                            <!-- Header with AI toggle -->
+                            <div id="admin-chat-header" class="p-3 border-b bg-white flex justify-between items-center hidden">
+                                <span id="admin-chat-active-user" class="font-bold text-gray-700">Select User</span>
+                                <label class="flex items-center gap-2 cursor-pointer bg-blue-50 px-3 py-1 rounded border border-blue-200">
+                                    <input type="checkbox" id="admin-ai-toggle" class="w-4 h-4 text-blue-600">
+                                    <span class="text-sm font-bold text-blue-800">AI Auto-Reply</span>
+                                </label>
+                            </div>
+
                             <div id="admin-chat-history" class="flex-1 p-4 overflow-y-auto flex flex-col gap-3">
                                 <div class="flex items-center justify-center h-full text-gray-400 flex-col">
                                     <i class="fas fa-comments text-4xl mb-2"></i>
@@ -547,13 +597,26 @@
                                 </div>
                             </div>
                             <div class="p-3 border-t bg-white flex gap-2">
-                                <input type="text" id="admin-chat-input" disabled placeholder="Type a reply..." class="flex-1 border p-2 rounded focus:outline-blue-500">
-                                <button id="admin-chat-send" disabled class="bg-blue-600 hover:bg-blue-700 text-white px-6 rounded font-bold shadow"><i class="fas fa-paper-plane"></i> Send</button>
+                                <input type="text" id="admin-chat-input" disabled placeholder="Type a manual reply..." class="flex-1 border p-2 rounded focus:outline-blue-500">
+                                <button id="admin-chat-send" disabled class="bg-blue-600 hover:bg-blue-700 text-white px-4 md:px-6 rounded font-bold shadow"><i class="fas fa-paper-plane"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Order Details Modal -->
+    <div id="order-details-modal" class="fixed inset-0 modal-overlay hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative flex flex-col">
+            <div class="sticky top-0 bg-brand text-white p-4 flex justify-between items-center rounded-t-lg z-10">
+                <h3 class="text-lg font-bold">Order Full Details</h3>
+                <button onclick="document.getElementById('order-details-modal').classList.add('hidden')" class="text-white hover:text-gray-200 text-2xl"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="order-details-content" class="p-6">
+                <!-- Injected via JS -->
             </div>
         </div>
     </div>
@@ -564,6 +627,9 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, onSnapshot, doc, updateDoc, deleteDoc, setDoc, getDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        // Gemini API configuration for AI tasks
+        const apiKey = ""; // System environment provides key at runtime
 
         const firebaseConfig = {
             apiKey: "AIzaSyAXLuPDgPNGT1IX1kTE-3H1SCdpak1RT2s",
@@ -584,7 +650,7 @@
         let cart = [];
         let wishlist = []; // Array of product IDs (strings)
         let currentUser = null;
-        let siteSettings = { logo: '', banners: [] };
+        let siteSettings = { logo: '', banners: [], upiId: '' }; // Added upiId
         
         // New State for Filtering/Searching
         let currentCategoryFilter = '';
@@ -601,7 +667,8 @@
                     img.src = e.target.result;
                     img.onload = () => {
                         const canvas = document.createElement('canvas');
-                        const MAX_SIZE = 800;
+                        // Use 500 for better compression to avoid Firestore limits
+                        const MAX_SIZE = 500;
                         let width = img.width;
                         let height = img.height;
                         if (width > height && width > MAX_SIZE) {
@@ -615,7 +682,7 @@
                         canvas.height = height;
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
-                        resolve(canvas.toDataURL('image/jpeg', 0.6)); 
+                        resolve(canvas.toDataURL('image/jpeg', 0.5)); // 0.5 quality compression
                     };
                 };
             });
@@ -633,6 +700,21 @@
         window.addToCart = addToCart;
         window.filterCategory = filterCategory;
         window.cancelOrder = cancelOrder;
+        
+        window.togglePaymentUI = () => {
+            const method = document.querySelector('input[name="payment_method"]:checked').value;
+            const sec = E('online-payment-section');
+            if(method === 'online') {
+                sec.classList.remove('hidden');
+                E('admin-upi-display').innerText = siteSettings.upiId || 'Not Setup by Admin';
+                const total = E('chk-amount').innerText.replace('₹', '');
+                E('pay-amount-display').innerText = `₹${total}`;
+            } else {
+                sec.classList.add('hidden');
+            }
+        };
+
+        window.viewAdminOrderDetails = (oid) => openAdminOrderModal(oid);
 
         // Router
         function handleRouting() {
@@ -1170,7 +1252,7 @@
             E('chk-amount').innerText = E('cart-total-real').innerText;
         };
 
-        // ==================== CHECKOUT LOGIC ====================
+        // ==================== CHECKOUT LOGIC & AI PAYMENT ====================
         async function prefillCheckoutAddress() {
             if(!currentUser) return;
             const userDoc = await getDoc(doc(db, "users", currentUser.uid));
@@ -1186,10 +1268,81 @@
                 E('chk-save-address').checked = true;
             }
         }
+        
+        async function verifyPaymentWithGemini(base64Img) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const b64Data = base64Img.split(',')[1];
+            
+            const prompt = `Analyze this UPI payment screenshot. Extract the exact UPI ID the payment was sent to, and the total amount paid. 
+            Respond ONLY with a valid JSON object matching this exact format:
+            {"upiId": "extracted_upi_here", "amount": 100.00}`;
+
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [
+                            { text: prompt },
+                            { inlineData: { mimeType: "image/jpeg", data: b64Data } }
+                        ]
+                    }]
+                })
+            });
+            const data = await res.json();
+            let txt = data.candidates[0].content.parts[0].text.trim();
+            txt = txt.replace(/```json/g, '').replace(/```/g, ''); 
+            return JSON.parse(txt);
+        }
 
         E('checkout-form').onsubmit = async (e) => {
             e.preventDefault();
             if(!currentUser) return;
+            
+            const btn = E('btn-confirm-order');
+            const statusDiv = E('ai-verify-status');
+            const method = document.querySelector('input[name="payment_method"]:checked').value;
+            const total = parseInt(E('chk-amount').innerText.replace('₹', ''));
+            
+            let finalPaymentData = { method: method, verified: false, screenshot: null };
+
+            if(method === 'online') {
+                const fileInput = E('payment-screenshot');
+                if(!fileInput.files[0]) return alert("Please upload the payment screenshot!");
+                
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying Payment via AI...';
+                statusDiv.classList.remove('hidden', 'bg-red-100', 'text-red-700', 'bg-green-100', 'text-green-700');
+                statusDiv.innerText = "AI is analyzing your screenshot...";
+                
+                try {
+                    const b64 = await fileToBase64(fileInput.files[0]);
+                    const extractedData = await verifyPaymentWithGemini(b64);
+                    
+                    const exUpi = (extractedData.upiId || '').toLowerCase();
+                    const expectedUpi = (siteSettings.upiId || '').toLowerCase();
+                    const exAmt = parseFloat(extractedData.amount || 0);
+                    
+                    // Simple UPI fuzzy check and Exact amount check
+                    if(exUpi.includes(expectedUpi.split('@')[0]) && exAmt === total) {
+                        statusDiv.classList.add('bg-green-100', 'text-green-700');
+                        statusDiv.innerHTML = `<i class="fas fa-check-circle"></i> Verification Success! (Found: ₹${exAmt} to ${exUpi})`;
+                        finalPaymentData.verified = true;
+                        finalPaymentData.screenshot = b64;
+                    } else {
+                        statusDiv.classList.add('bg-red-100', 'text-red-700');
+                        statusDiv.innerHTML = `<i class="fas fa-times-circle"></i> Verification Failed. <br>Expected: ₹${total} to ${expectedUpi}<br>Found in image: ₹${exAmt} to ${exUpi}`;
+                        btn.disabled = false;
+                        btn.innerHTML = 'CONFIRM ORDER';
+                        return; // Stop order placement
+                    }
+                } catch(err) {
+                    alert("AI Verification error. Image might be unclear.");
+                    btn.disabled = false;
+                    btn.innerHTML = 'CONFIRM ORDER';
+                    return;
+                }
+            }
             
             const orderItems = cart.map(item => {
                 const p = products.find(x => x.id === item.pid);
@@ -1202,7 +1355,6 @@
                 };
             });
 
-            const total = parseInt(E('chk-amount').innerText.replace('₹', ''));
             const addressData = {
                 fname: E('chk-fname').value,
                 lname: E('chk-lname').value,
@@ -1223,7 +1375,8 @@
                 items: orderItems,
                 total: total,
                 status: 'Pending',
-                date: new Date().toISOString()
+                date: new Date().toISOString(),
+                payment: finalPaymentData
             };
 
             try {
@@ -1242,8 +1395,14 @@
                 alert("Order Placed Successfully!");
                 window.location.hash = '#orders';
                 e.target.reset();
+                E('online-payment-section').classList.add('hidden');
+                statusDiv.classList.add('hidden');
+                btn.disabled = false;
+                btn.innerHTML = 'CONFIRM ORDER';
             } catch(err) {
                 alert("Order failed: " + err.message);
+                btn.disabled = false;
+                btn.innerHTML = 'CONFIRM ORDER';
             }
         };
 
@@ -1281,6 +1440,7 @@
                                     o.status === 'Out for Delivery' ? 'bg-purple-100 text-purple-800' :
                                     'bg-green-100 text-green-800'
                                 }">${o.status}</span>
+                                <div class="text-xs font-bold mt-1 text-gray-500">Method: <span class="${o.payment?.method==='online'?'text-green-600':'text-gray-800'} uppercase">${o.payment?.method || 'cod'}</span></div>
                                 ${o.status === 'Pending' ? `<button onclick="cancelOrder('${o.id}')" class="text-red-600 hover:text-red-800 font-bold text-sm mt-2"><i class="fas fa-times-circle"></i> Cancel Order</button>` : ''}
                             </div>
                         </div>
@@ -1315,21 +1475,23 @@
         }
 
 
-        // ==================== CHAT SYSTEM (User Side) ====================
+        // ==================== CHAT SYSTEM (User Side with AI) ====================
         const chatWidget = E('chat-widget');
         E('chat-toggle-btn').onclick = () => chatWidget.classList.toggle('chat-closed');
         E('chat-close-btn').onclick = () => chatWidget.classList.add('chat-closed');
 
         let chatUnsubscribe = null;
+        let chatMessagesHistory = []; // Track current history
+        
         function initChatListener() {
             if(chatUnsubscribe) chatUnsubscribe();
             if(!currentUser) return;
             const q = collection(db, "chats", currentUser.uid, "messages");
             chatUnsubscribe = onSnapshot(q, (snap) => {
-                const msgs = snap.docs.map(d=>d.data()).sort((a,b) => a.timestamp - b.timestamp);
+                chatMessagesHistory = snap.docs.map(d=>d.data()).sort((a,b) => a.timestamp - b.timestamp);
                 const cBox = E('chat-messages');
                 cBox.innerHTML = '<div class="self-start bg-white border text-black px-3 py-2 rounded-lg rounded-tl-none shadow-sm max-w-[80%]">Hello! How can we help you today?</div>';
-                msgs.forEach(m => {
+                chatMessagesHistory.forEach(m => {
                     const div = document.createElement('div');
                     if(m.sender === 'user') {
                         div.className = "self-end bg-brand text-white px-3 py-2 rounded-lg rounded-tr-none shadow-sm max-w-[80%]";
@@ -1343,6 +1505,24 @@
             });
         }
 
+        async function fetchGeminiChatResponse(userMsg) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            let context = `You are a helpful customer support AI for an e-commerce store called 'Original Mini Product'. Be polite, concise. Do not use markdown. Chat history:\n`;
+            chatMessagesHistory.slice(-5).forEach(m => {
+                context += `${m.sender}: ${m.text}\n`;
+            });
+            context += `user: ${userMsg}\nai:`;
+
+            try {
+                const res = await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ contents: [{ parts: [{ text: context }] }] }) });
+                const data = await res.json();
+                if(data.candidates && data.candidates[0]) return data.candidates[0].content.parts[0].text.trim();
+                return "Our support team will get back to you shortly.";
+            } catch(e) {
+                return "Our support team will get back to you shortly.";
+            }
+        }
+
         E('chat-send-btn').onclick = sendChatMessage;
         E('chat-input').onkeypress = (e) => { if(e.key === 'Enter') sendChatMessage(); }
         async function sendChatMessage() {
@@ -1351,6 +1531,12 @@
             const text = input.value.trim();
             if(!text) return;
             
+            input.value = '';
+            
+            // Get user chat settings to check if AI is disabled by Admin
+            const userChatDoc = await getDoc(doc(db, "chats", currentUser.uid));
+            const aiDisabled = userChatDoc.exists() ? userChatDoc.data().aiDisabled : false;
+
             await setDoc(doc(db, "chats", currentUser.uid), {
                 userId: currentUser.uid,
                 name: currentUser.displayName,
@@ -1360,7 +1546,17 @@
             await addDoc(collection(db, "chats", currentUser.uid, "messages"), {
                 text: text, sender: 'user', timestamp: Date.now()
             });
-            input.value = '';
+            
+            // Trigger AI if enabled
+            if(!aiDisabled) {
+                E('chat-typing-indicator').classList.remove('hidden');
+                const aiResponse = await fetchGeminiChatResponse(text);
+                E('chat-typing-indicator').classList.add('hidden');
+                
+                await addDoc(collection(db, "chats", currentUser.uid, "messages"), {
+                    text: aiResponse, sender: 'admin', timestamp: Date.now()
+                });
+            }
         }
 
 
@@ -1533,65 +1729,113 @@
                     const div = document.createElement('div');
                     div.className = "p-3 border-b cursor-pointer hover:bg-gray-100 flex items-center gap-2";
                     div.innerHTML = `<div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold">${u.name?u.name[0]:'U'}</div><div><div class="font-bold text-sm">${u.name || 'User'}</div><div class="text-xs text-gray-500 truncate w-32">${u.userId}</div></div>`;
-                    div.onclick = () => openAdminChat(u.userId, u.name);
+                    div.onclick = () => openAdminChat(u.userId, u.name, u.aiDisabled);
                     usersList.appendChild(div);
                 });
             });
+            
+            // Populate settings
+            E('setting-upi-id').value = siteSettings.upiId || '';
         }
 
         function renderAdminOrders(orders) {
             if(orders.length===0) { E('admin-order-list').innerHTML="<div class='bg-white p-4 text-gray-500 rounded border'>No orders yet.</div>"; return;}
+            // Pass global array so modal can access it
+            window.allOrdersGlobal = orders; 
+            
             E('admin-order-list').innerHTML = orders.map(o => `
-                <div class="bg-white p-5 rounded shadow-sm border-l-4 ${
+                <div class="bg-white p-5 rounded shadow-sm border-l-4 cursor-pointer hover:shadow-md transition ${
                     o.status==='Delivered'?'border-green-500':
                     o.status==='Shipped'?'border-blue-500':
                     o.status==='Cancelled'?'border-red-500':
                     o.status==='Out for Delivery'?'border-purple-500':
                     'border-orange-500'
-                }">
-                    <div class="flex justify-between items-start mb-3">
+                }" onclick="viewAdminOrderDetails('${o.id}')">
+                    <div class="flex flex-col md:flex-row justify-between items-start mb-3">
                         <div>
                             <span class="font-bold text-lg text-gray-800">${o.customerName}</span> <span class="text-gray-500">- ${o.phone}</span>
                             <div class="text-sm text-gray-600 mt-1"><i class="fas fa-map-marker-alt text-red-500 mr-1"></i> ${o.address}</div>
                         </div>
-                        <div class="text-right">
+                        <div class="text-left md:text-right mt-2 md:mt-0">
                             <div class="text-xs font-semibold text-gray-500 bg-gray-100 px-2 py-1 rounded inline-block">${new Date(o.date).toLocaleString()}</div>
                             <div class="font-bold text-xl mt-2 text-black">₹${o.total}</div>
-                        </div>
-                    </div>
-                    <div class="border-t pt-3 bg-gray-50 p-3 rounded">
-                        <span class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Order Items:</span>
-                        ${o.items.map(i => `<div class="text-sm text-gray-800 font-semibold mb-1">&bull; ${i.name} <span class="text-gray-500 font-normal">(Qty: ${i.qty})</span></div>`).join('')}
-                    </div>
-                    <div class="mt-4 flex items-center justify-between border-t pt-4">
-                        <div class="text-xs font-mono bg-gray-100 px-2 py-1 rounded text-gray-500">ID: ${o.id}</div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-sm font-bold text-gray-600">Update Status:</span>
-                            <select onchange="updateOrderStatus('${o.id}', this.value)" class="border p-2 font-bold rounded shadow-sm focus:outline-none ${
-                                o.status==='Pending'?'bg-orange-50 text-orange-700 border-orange-200':
-                                o.status==='Shipped'?'bg-blue-50 text-blue-700 border-blue-200':
-                                o.status==='Cancelled'?'bg-red-50 text-red-700 border-red-200':
-                                o.status==='Out for Delivery'?'bg-purple-50 text-purple-700 border-purple-200':
-                                'bg-green-50 text-green-700 border-green-200'
-                            }">
-                                <option value="Pending" ${o.status==='Pending'?'selected':''}>Pending</option>
-                                <option value="Shipped" ${o.status==='Shipped'?'selected':''}>Shipped</option>
-                                <option value="Out for Delivery" ${o.status==='Out for Delivery'?'selected':''}>Out for Delivery</option>
-                                <option value="Delivered" ${o.status==='Delivered'?'selected':''}>Delivered</option>
-                                <option value="Cancelled" ${o.status==='Cancelled'?'selected':''}>Cancelled</option>
-                            </select>
+                            <span class="text-xs font-bold uppercase ${o.payment?.method==='online'?'text-green-600':'text-gray-800'}">Payment: ${o.payment?.method||'COD'}</span>
                         </div>
                     </div>
                 </div>
             `).join('');
         }
 
+        // Open specific order Modal
+        window.openAdminOrderModal = (oid) => {
+            const orders = window.allOrdersGlobal || [];
+            const o = orders.find(x=>x.id === oid);
+            if(!o) return;
+            
+            let html = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-500 border-b pb-2 mb-3">Customer Details</h4>
+                        <p><strong>Name:</strong> ${o.customerName}</p>
+                        <p><strong>Phone:</strong> ${o.phone}</p>
+                        <p><strong>Address:</strong><br> ${o.address}</p>
+                        
+                        <h4 class="font-bold text-gray-500 border-b pb-2 mb-3 mt-6">Payment Info</h4>
+                        <p><strong>Method:</strong> <span class="uppercase font-bold">${o.payment?.method || 'COD'}</span></p>
+                        <p><strong>Total Amount:</strong> ₹${o.total}</p>
+                    `;
+            
+            if(o.payment?.method === 'online' && o.payment?.screenshot) {
+                html += `<div class="mt-4"><p class="font-bold mb-2">Verified Payment Screenshot:</p>
+                         <img src="${o.payment.screenshot}" class="w-full max-w-xs border rounded-lg shadow-sm cursor-pointer hover:scale-105 transition" onclick="window.open(this.src)"></div>`;
+            }
+
+            html += `</div><div>
+                        <h4 class="font-bold text-gray-500 border-b pb-2 mb-3 flex justify-between items-center">
+                            Order Status 
+                            <select onchange="updateOrderStatus('${o.id}', this.value)" class="border p-1 font-bold rounded shadow-sm text-sm focus:outline-none bg-gray-50 text-black">
+                                <option value="Pending" ${o.status==='Pending'?'selected':''}>Pending</option>
+                                <option value="Shipped" ${o.status==='Shipped'?'selected':''}>Shipped</option>
+                                <option value="Out for Delivery" ${o.status==='Out for Delivery'?'selected':''}>Out for Delivery</option>
+                                <option value="Delivered" ${o.status==='Delivered'?'selected':''}>Delivered</option>
+                                <option value="Cancelled" ${o.status==='Cancelled'?'selected':''}>Cancelled</option>
+                            </select>
+                        </h4>
+                        
+                        <h4 class="font-bold text-gray-500 border-b pb-2 mb-3 mt-6">Order Items</h4>
+                        <div class="space-y-3">
+            `;
+            
+            o.items.forEach(i => {
+                html += `
+                    <div class="flex gap-3 bg-gray-50 p-2 rounded border">
+                        <img src="${i.image}" class="w-16 h-16 object-contain bg-white rounded border">
+                        <div>
+                            <div class="font-bold text-sm line-clamp-2">${i.name}</div>
+                            <div class="text-gray-600 text-sm">Qty: ${i.qty} x ₹${i.price}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div></div></div>`;
+            
+            E('order-details-content').innerHTML = html;
+            E('order-details-modal').classList.remove('hidden');
+        };
+
         async function updateOrderStatus(oid, newStatus) {
             await updateDoc(doc(db, "orders", oid), { status: newStatus });
+            alert('Order Status Updated');
         }
 
+        // Admin Settings (Banners, Logo, UPI)
+        E('save-upi-btn').onclick = async () => {
+            const upi = E('setting-upi-id').value;
+            await setDoc(doc(db, "settings", "global"), { upiId: upi }, {merge:true});
+            alert("UPI ID Saved!");
+        };
 
-        // Admin Settings (Banners & Logo)
         E('save-logo-btn').onclick = async () => {
             const file = E('setting-logo').files[0];
             if(!file) return alert("Select an image first!");
@@ -1613,14 +1857,22 @@
         };
 
 
-        // Admin Chat System
+        // Admin Chat System with AI Toggle
         let currentChatUser = null;
         let adminChatUnsub = null;
 
-        function openAdminChat(uid, uname) {
+        function openAdminChat(uid, uname, aiDisabled) {
             currentChatUser = uid;
+            E('admin-chat-header').classList.remove('hidden');
             E('admin-chat-input').disabled = false;
             E('admin-chat-send').disabled = false;
+            
+            const aiToggle = E('admin-ai-toggle');
+            aiToggle.checked = !aiDisabled; // If not disabled, toggle is true (On)
+            
+            aiToggle.onchange = async (e) => {
+                 await setDoc(doc(db, "chats", uid), { aiDisabled: !e.target.checked }, {merge:true});
+            };
             
             if(adminChatUnsub) adminChatUnsub();
             adminChatUnsub = onSnapshot(collection(db, "chats", uid, "messages"), (snap) => {
@@ -1646,6 +1898,11 @@
             const input = E('admin-chat-input');
             const txt = input.value.trim();
             if(!txt) return;
+            
+            // Turn off AI auto-reply when admin types manually
+            E('admin-ai-toggle').checked = false;
+            await setDoc(doc(db, "chats", currentChatUser), { aiDisabled: true }, {merge:true});
+            
             await addDoc(collection(db, "chats", currentChatUser, "messages"), {
                 text: txt, sender: 'admin', timestamp: Date.now()
             });
