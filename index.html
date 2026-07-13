@@ -1085,7 +1085,7 @@
             if(siteSettings.banners && siteSettings.banners.length > 0) {
                 container.innerHTML = siteSettings.banners.map(b => `<img src="${b}" class="carousel-item object-cover w-full h-full">`).join('');
                 
-                // Auto Slide Logic (Every 3 seconds)
+                // Auto Slide Logic (Every 7 seconds)
                 if(bannerInterval) clearInterval(bannerInterval);
                 bannerInterval = setInterval(() => {
                     if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 10) {
