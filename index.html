@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Original Mini Product | Best Online Store for Mobiles, Electronics & Fashion</title>
     
-    <!-- SEO Meta Tags -->
+    <!-- SEO Meta Tags for Top Search Results Ranking -->
     <meta name="description" content="Shop the best original mini products, mobiles, electronics, fashion, and home appliances at unbeatable prices. Top deals and verified quality.">
     <meta name="keywords" content="original mini product, online shopping, buy mobiles online, best electronics, fashion, deals, discount">
     <meta name="robots" content="index, follow">
@@ -23,8 +23,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        /* Custom scrollbar and minor tweaks */
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f1f3f6; }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -46,7 +46,7 @@
         .modal-overlay { background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(2px); z-index: 200; }
     </style>
 </head>
-<body>
+<body class="pb-16 md:pb-0">
 
     <!-- ==================== USER STOREFRONT ==================== -->
     <div id="store-app" class="view-section active">
@@ -61,24 +61,24 @@
                 
                 <!-- Search -->
                 <div class="flex-1 max-w-2xl relative">
-                    <input type="text" id="search-input" placeholder="Search for products, brands and more..." class="w-full text-black px-4 py-2 rounded-sm focus:outline-none shadow-sm">
+                    <input type="text" id="search-input" placeholder="Search for products, brands and more..." class="w-full text-black px-4 py-2 rounded-sm focus:outline-none shadow-sm text-sm sm:text-base">
                     <button id="search-btn-trigger" class="absolute right-0 top-0 h-full px-5 text-brand bg-white border-l hover:bg-gray-100 rounded-r-sm font-semibold">Search</button>
                 </div>
 
-                <!-- Nav Icons -->
-                <div class="flex items-center gap-4 sm:gap-6 text-sm sm:text-base">
+                <!-- Nav Icons (Desktop Navigation) -->
+                <div class="hidden md:flex items-center gap-6 text-base">
                     <div id="auth-btn-container" class="cursor-pointer font-semibold flex items-center gap-1 hover:text-gray-200">
-                        <i class="far fa-user"></i> <span id="auth-text" class="hidden sm:inline">Login</span>
+                        <i class="far fa-user"></i> <span id="auth-text">Login</span>
                     </div>
                     <div class="cursor-pointer font-semibold flex items-center gap-1 hover:text-gray-200" onclick="window.location.hash='#orders'">
-                        <i class="fas fa-box"></i> <span class="hidden sm:inline">Orders</span>
+                        <i class="fas fa-box"></i> <span>Orders</span>
                     </div>
                     <div class="cursor-pointer font-semibold flex items-center gap-1 hover:text-gray-200" onclick="window.location.hash='#wishlist'">
-                        <i class="far fa-heart"></i> <span class="hidden sm:inline">Wishlist</span>
+                        <i class="far fa-heart"></i> <span>Wishlist</span>
                     </div>
                     <div class="cursor-pointer font-semibold flex items-center gap-1 hover:text-gray-200 relative" onclick="window.location.hash='#cart'">
-                        <i class="fas fa-shopping-cart"></i> <span class="hidden sm:inline">Cart</span>
-                        <span id="cart-count" class="absolute -top-2 -right-2 sm:-right-3 bg-yellow-400 text-black text-xs font-bold px-1.5 py-0.5 rounded-full hidden">0</span>
+                        <i class="fas fa-shopping-cart"></i> <span>Cart</span>
+                        <span id="cart-count" class="absolute -top-2 -right-3 bg-yellow-400 text-black text-xs font-bold px-1.5 py-0.5 rounded-full hidden">0</span>
                     </div>
                 </div>
             </div>
@@ -86,17 +86,9 @@
 
         <!-- Categories Nav -->
         <div class="bg-white shadow-sm border-b overflow-x-auto hide-scrollbar">
-            <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between min-w-max text-sm font-semibold text-gray-700">
+            <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between min-w-max text-sm font-semibold text-gray-700" id="dynamic-nav-categories">
+                <!-- Categories will be rendered here dynamically -->
                 <div class="cursor-pointer hover:text-brand flex items-center gap-1" onclick="filterCategory('')"><i class="fas fa-bars"></i> All Categories</div>
-                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('')">Home</div>
-                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('Mobiles')">Mobiles</div>
-                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('Electronics')">Electronics</div>
-                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('Fashion')">Fashion</div>
-                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('Home & Kitchen')">Home & Kitchen</div>
-                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('Beauty')">Beauty</div>
-                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('Toys & Games')">Toys & Games</div>
-                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('Sports')">Sports</div>
-                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('Books')">Books</div>
             </div>
         </div>
 
@@ -108,7 +100,6 @@
                 <!-- Banners Carousel -->
                 <div class="relative rounded-md overflow-hidden mb-6 group bg-white shadow-sm">
                     <div id="banner-container" class="carousel-container hide-scrollbar h-40 sm:h-64 md:h-80 bg-gray-200">
-                        <!-- Banners will be injected here -->
                         <div class="flex items-center justify-center w-full h-full text-gray-500">Loading Banners...</div>
                     </div>
                     <button id="prev-banner" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white text-black w-8 h-10 rounded shadow hover:bg-gray-100 opacity-0 group-hover:opacity-100 transition"><i class="fas fa-chevron-left"></i></button>
@@ -116,39 +107,8 @@
                 </div>
 
                 <!-- Circular Categories -->
-                <div class="flex overflow-x-auto hide-scrollbar gap-6 mb-8 pb-2 items-center justify-start md:justify-center">
-                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand group" onclick="filterCategory('Mobiles')">
-                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center shadow-sm mb-2 group-hover:shadow-md transition"><i class="fas fa-mobile-alt text-2xl text-blue-600"></i></div>
-                        <span class="text-xs font-semibold text-gray-700">Mobiles</span>
-                    </div>
-                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand group" onclick="filterCategory('Electronics')">
-                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center shadow-sm mb-2 group-hover:shadow-md transition"><i class="fas fa-headphones text-2xl text-gray-800"></i></div>
-                        <span class="text-xs font-semibold text-gray-700">Electronics</span>
-                    </div>
-                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand group" onclick="filterCategory('Fashion')">
-                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center shadow-sm mb-2 group-hover:shadow-md transition"><i class="fas fa-tshirt text-2xl text-indigo-500"></i></div>
-                        <span class="text-xs font-semibold text-gray-700">Fashion</span>
-                    </div>
-                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand group" onclick="filterCategory('Home & Kitchen')">
-                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center shadow-sm mb-2 group-hover:shadow-md transition"><i class="fas fa-blender text-2xl text-gray-600"></i></div>
-                        <span class="text-xs font-semibold text-gray-700">Home</span>
-                    </div>
-                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand group" onclick="filterCategory('Beauty')">
-                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center shadow-sm mb-2 group-hover:shadow-md transition"><i class="fas fa-spray-can text-2xl text-pink-500"></i></div>
-                        <span class="text-xs font-semibold text-gray-700">Beauty</span>
-                    </div>
-                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand group" onclick="filterCategory('Toys & Games')">
-                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center shadow-sm mb-2 group-hover:shadow-md transition"><i class="fas fa-gamepad text-2xl text-orange-500"></i></div>
-                        <span class="text-xs font-semibold text-gray-700">Toys</span>
-                    </div>
-                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand group" onclick="filterCategory('Sports')">
-                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center shadow-sm mb-2 group-hover:shadow-md transition"><i class="fas fa-futbol text-2xl text-green-600"></i></div>
-                        <span class="text-xs font-semibold text-gray-700">Sports</span>
-                    </div>
-                    <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand group" onclick="filterCategory('Books')">
-                        <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center shadow-sm mb-2 group-hover:shadow-md transition"><i class="fas fa-book text-2xl text-purple-600"></i></div>
-                        <span class="text-xs font-semibold text-gray-700">Books</span>
-                    </div>
+                <div class="flex overflow-x-auto hide-scrollbar gap-6 mb-8 pb-2 items-center justify-start md:justify-center" id="dynamic-circular-categories">
+                    <!-- Dynamic circular categories render -->
                 </div>
 
                 <div class="flex justify-between items-center mb-4">
@@ -158,7 +118,6 @@
                 
                 <!-- Product Grid -->
                 <div id="product-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
-                    <!-- Products will be injected here -->
                     <p class="col-span-full text-center py-10 text-gray-500">Loading Products...</p>
                 </div>
             </div>
@@ -174,9 +133,7 @@
                             <img id="pd-main-img" src="" alt="Product" class="max-w-full max-h-full object-contain">
                             <button id="pd-wishlist-icon" class="absolute top-3 right-3 text-2xl text-gray-300 hover:text-red-500 transition"><i class="fas fa-heart"></i></button>
                         </div>
-                        <div id="pd-thumbnails" class="flex gap-2 overflow-x-auto hide-scrollbar py-2">
-                            <!-- Thumbnails -->
-                        </div>
+                        <div id="pd-thumbnails" class="flex gap-2 overflow-x-auto hide-scrollbar py-2"></div>
                         <!-- Action Buttons -->
                         <div class="flex gap-2 sm:gap-4 mt-2">
                             <button id="pd-btn-cart" class="flex-1 bg-[#ff9f00] hover:bg-orange-500 text-white font-bold py-3 sm:py-4 rounded shadow text-sm sm:text-base uppercase"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
@@ -198,13 +155,22 @@
                             <span id="pd-rating-count-text" class="text-gray-500 font-semibold">No Ratings Yet</span>
                         </div>
 
-                        <!-- Price -->
+                        <!-- Price & Delivery Charge info -->
                         <div class="flex items-end gap-3 pt-2">
                             <span id="pd-price" class="text-3xl font-bold text-black">₹0</span>
                             <span id="pd-fake-price" class="text-gray-500 line-through text-lg">₹0</span>
                             <span id="pd-discount" class="text-green-600 font-bold text-lg">0% OFF</span>
                         </div>
                         <p class="text-sm text-gray-500">Inclusive of all taxes</p>
+                        
+                        <!-- Delivery Charge Status -->
+                        <div id="pd-delivery-info" class="text-sm font-semibold mt-1"></div>
+
+                        <!-- Size Selector Container (Custom Attribute) -->
+                        <div id="pd-size-container" class="hidden border-t pt-4">
+                            <h3 class="text-gray-600 font-semibold mb-2" id="pd-size-label">Select Option</h3>
+                            <div id="pd-sizes-list" class="flex gap-2 flex-wrap"></div>
+                        </div>
 
                         <!-- Stock Status -->
                         <div id="pd-stock-status" class="font-bold py-2 text-lg"></div>
@@ -222,7 +188,7 @@
                                 <button id="btn-rate-product" class="bg-white border border-gray-300 shadow-sm px-4 py-2 rounded font-semibold text-sm hidden">Rate Product</button>
                             </div>
                             
-                            <!-- Review Input Area (Hidden by default) -->
+                            <!-- Review Input Area -->
                             <div id="review-input-area" class="hidden bg-gray-50 p-4 rounded mb-6 border">
                                 <h4 class="font-bold mb-2">Write a Review</h4>
                                 <div class="flex gap-2 mb-2 text-2xl text-gray-300" id="star-rating-input">
@@ -242,11 +208,9 @@
                             </div>
 
                             <div id="pd-reviews-list" class="space-y-4">
-                                 <!-- Dynamic reviews will load here -->
                                  <p class="text-gray-500 text-sm">Loading reviews...</p>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -258,9 +222,7 @@
                         <div class="p-4 border-b flex justify-between items-center">
                             <h2 class="text-xl font-bold">My Cart</h2>
                         </div>
-                        <div id="cart-items" class="p-0">
-                            <!-- Cart Items -->
-                        </div>
+                        <div id="cart-items" class="p-0"></div>
                         <div id="cart-footer" class="p-4 border-t flex justify-end sticky bottom-0 bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
                             <button id="btn-checkout" class="bg-[#fb641b] text-white font-bold py-3 px-10 rounded shadow text-lg">Place Order</button>
                         </div>
@@ -270,7 +232,7 @@
                         <div class="p-4 space-y-4 text-gray-800 font-semibold">
                             <div class="flex justify-between"><span>Price (<span id="cart-item-count">0</span> items)</span><span id="cart-total-fake">₹0</span></div>
                             <div class="flex justify-between text-green-600"><span>Discount</span><span id="cart-total-discount">-₹0</span></div>
-                            <div class="flex justify-between"><span>Delivery Charges</span><span class="text-green-600">Free</span></div>
+                            <div class="flex justify-between"><span>Delivery Charges</span><span id="cart-total-delivery">Free</span></div>
                             <div class="flex justify-between border-t border-dashed pt-4 font-bold text-xl text-black"><span>Total Amount</span><span id="cart-total-real">₹0</span></div>
                             <p class="text-green-600 text-sm font-bold mt-4">You will save <span id="cart-savings">₹0</span> on this order</p>
                         </div>
@@ -297,15 +259,10 @@
                                 <div>
                                     <select id="chk-state" required class="w-full border rounded p-3 focus:outline-brand bg-white">
                                         <option value="" disabled selected>--Select State--</option>
-                                        <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
                                         <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
                                         <option value="Assam">Assam</option>
                                         <option value="Bihar">Bihar</option>
-                                        <option value="Chandigarh">Chandigarh</option>
-                                        <option value="Chhattisgarh">Chhattisgarh</option>
                                         <option value="Delhi">Delhi</option>
-                                        <option value="Goa">Goa</option>
                                         <option value="Gujarat">Gujarat</option>
                                         <option value="Haryana">Haryana</option>
                                         <option value="Karnataka">Karnataka</option>
@@ -348,14 +305,25 @@
                                 </div>
                             </div>
 
-                            <!-- Online Payment Details (Hidden by Default) -->
+                            <!-- Online Payment Details -->
                             <div id="online-payment-section" class="hidden mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
                                 <h4 class="font-bold text-blue-800 mb-2 text-lg"><i class="fas fa-qrcode"></i> Scan & Pay</h4>
-                                <p class="text-sm text-gray-700 mb-4">Please pay <span id="pay-amount-display" class="font-bold text-lg text-black">₹0</span> to the UPI ID below, then upload the screenshot.</p>
+                                <p class="text-sm text-gray-700 mb-4">Please pay <span id="pay-amount-display" class="font-bold text-lg text-black">₹0</span> to the UPI ID below or scan the QR Code scanner.</p>
                                 
-                                <div class="bg-white p-4 rounded shadow-sm flex flex-col items-center gap-3 border">
+                                <div class="bg-white p-4 rounded shadow-sm flex flex-col items-center gap-4 border">
                                     <div class="text-center font-mono font-bold text-lg p-2 border-dashed border-2 border-gray-300 w-full rounded bg-gray-50">
                                         UPI ID: <span id="admin-upi-display" class="text-blue-600 user-select-all">Loading...</span>
+                                    </div>
+                                    
+                                    <!-- Dynamic Deep Link pay button -->
+                                    <a id="chk-upi-app-btn" href="#" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow text-center inline-block transition">
+                                        <i class="fas fa-mobile-alt mr-2"></i> Pay via UPI App (GPay/PhonePe/Paytm)
+                                    </a>
+
+                                    <!-- Admin QR Scanner code scanner if present -->
+                                    <div id="chk-qr-scanner-container" class="hidden flex flex-col items-center">
+                                        <span class="text-xs text-gray-500 font-bold mb-2">Scan QR Scanner:</span>
+                                        <img id="chk-qr-scanner-img" src="" alt="UPI QR Scanner" class="max-w-[200px] border p-2 rounded bg-white shadow-sm">
                                     </div>
                                 </div>
 
@@ -381,9 +349,7 @@
                 <div class="bg-white p-4 shadow-sm rounded border-b">
                     <h2 class="text-xl font-bold">My Wishlist (<span id="wishlist-count">0</span>)</h2>
                 </div>
-                <div id="wishlist-grid" class="bg-white grid grid-cols-1 divide-y shadow-sm rounded-b">
-                    <!-- Wishlist items -->
-                </div>
+                <div id="wishlist-grid" class="bg-white grid grid-cols-1 divide-y shadow-sm rounded-b"></div>
             </div>
 
             <!-- MY ORDERS VIEW -->
@@ -391,9 +357,7 @@
                 <div class="bg-white p-4 shadow-sm rounded border-b mb-4">
                     <h2 class="text-xl font-bold">My Orders</h2>
                 </div>
-                <div id="user-orders-list" class="space-y-4">
-                    <!-- User Orders -->
-                </div>
+                <div id="user-orders-list" class="space-y-4"></div>
             </div>
 
         </main>
@@ -418,10 +382,35 @@
                 </div>
             </div>
         </div>
+
+        <!-- Mobile Bottom Navigation Bar (Hidden on Desktop) -->
+        <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around py-2 z-40 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+            <a href="#home" class="flex flex-col items-center text-gray-600 hover:text-brand transition">
+                <i class="fas fa-home text-lg"></i>
+                <span class="text-[10px] font-semibold mt-0.5">Home</span>
+            </a>
+            <a href="#cart" class="flex flex-col items-center text-gray-600 hover:text-brand relative transition">
+                <i class="fas fa-shopping-cart text-lg"></i>
+                <span id="mobile-cart-badge" class="absolute -top-1.5 -right-2 bg-yellow-400 text-black text-[9px] font-bold px-1.5 py-0.5 rounded-full hidden">0</span>
+                <span class="text-[10px] font-semibold mt-0.5">Cart</span>
+            </a>
+            <a href="#wishlist" class="flex flex-col items-center text-gray-600 hover:text-brand transition">
+                <i class="fas fa-heart text-lg"></i>
+                <span class="text-[10px] font-semibold mt-0.5">Wishlist</span>
+            </a>
+            <a href="#orders" class="flex flex-col items-center text-gray-600 hover:text-brand transition">
+                <i class="fas fa-box text-lg"></i>
+                <span class="text-[10px] font-semibold mt-0.5">Orders</span>
+            </a>
+            <button onclick="E('chat-toggle-btn').click()" class="flex flex-col items-center text-gray-600 hover:text-brand transition">
+                <i class="fas fa-headset text-lg"></i>
+                <span class="text-[10px] font-semibold mt-0.5">Support</span>
+            </button>
+        </div>
     </div>
 
 
-    <!-- ==================== ADMIN PANEL (Hidden by Default) ==================== -->
+    <!-- ==================== ADMIN PANEL ==================== -->
     <div id="admin-app" class="hidden min-h-screen bg-gray-100 flex flex-col">
         <!-- Admin Login Modal -->
         <div id="admin-login-overlay" class="fixed inset-0 bg-black bg-opacity-75 z-[100] flex items-center justify-center">
@@ -469,17 +458,14 @@
                             <div>
                                 <label class="block text-sm font-bold text-gray-700">Category</label>
                                 <select id="prod-category" class="w-full border p-2 rounded focus:outline-blue-500" required>
-                                    <option value="" disabled selected>--Select Category--</option>
-                                    <option value="Mobiles">Mobiles</option>
-                                    <option value="Electronics">Electronics</option>
-                                    <option value="Fashion">Fashion</option>
-                                    <option value="Home & Kitchen">Home & Kitchen</option>
-                                    <option value="Beauty">Beauty</option>
-                                    <option value="Toys & Games">Toys & Games</option>
-                                    <option value="Sports">Sports</option>
-                                    <option value="Books">Books</option>
-                                    <option value="More">More</option>
+                                    <!-- Dynamic select loading inside JS -->
                                 </select>
+                            </div>
+                            <!-- Sizes Multi-Selector (Custom Attribute) -->
+                            <div class="md:col-span-2 bg-blue-50 p-3 rounded border border-blue-200">
+                                <span class="block text-sm font-bold text-blue-800 mb-1"><i class="fas fa-sliders-h"></i> Custom Product Sizes / Options:</span>
+                                <input type="text" id="prod-sizes" placeholder="e.g. S, M, L, XL or 5, 6, 7, 8 or Red, Green, Blue (Separated by comma)" class="w-full border p-2 rounded focus:outline-blue-500">
+                                <span class="text-xs text-gray-500 font-semibold mt-1 block">Leave empty if product does not have any selectable size/color.</span>
                             </div>
                             <div>
                                 <label class="block text-sm font-bold text-gray-700">MRP (Fake Price)</label>
@@ -489,12 +475,17 @@
                                 <label class="block text-sm font-bold text-gray-700">Selling Price (Real Price)</label>
                                 <input type="number" id="prod-real-price" class="w-full border p-2 rounded focus:outline-blue-500">
                             </div>
+                            <!-- Delivery charge field added -->
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700">Delivery Charge (₹) (0 for Free Delivery)</label>
+                                <input type="number" id="prod-delivery-price" min="0" placeholder="0" class="w-full border p-2 rounded focus:outline-blue-500">
+                            </div>
                             <div class="md:col-span-2">
                                 <label class="block text-sm font-bold text-gray-700">Description</label>
                                 <textarea id="prod-desc" rows="3" class="w-full border p-2 rounded focus:outline-blue-500"></textarea>
                             </div>
                             <div class="md:col-span-2">
-                                <label class="block text-sm font-bold text-gray-700">Images (Auto converted to Base64 compressed)</label>
+                                <label class="block text-sm font-bold text-gray-700">Images (Auto converted & compressed to fit within 1MB)</label>
                                 <input type="file" id="prod-images" multiple accept="image/*" class="w-full border p-2 rounded bg-gray-50">
                                 <div id="prod-images-preview" class="flex gap-2 mt-2 overflow-x-auto p-2 bg-gray-50 rounded min-h-[80px]"></div>
                             </div>
@@ -518,13 +509,12 @@
                                     <th class="p-3 font-semibold text-gray-600">Image</th>
                                     <th class="p-3 font-semibold text-gray-600">Name & Category</th>
                                     <th class="p-3 font-semibold text-gray-600">Price</th>
+                                    <th class="p-3 font-semibold text-gray-600">Delivery</th>
                                     <th class="p-3 font-semibold text-gray-600">Status</th>
                                     <th class="p-3 font-semibold text-gray-600 text-center">Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="admin-product-list" class="divide-y">
-                                <!-- Admin products -->
-                            </tbody>
+                            <tbody id="admin-product-list" class="divide-y"></tbody>
                         </table>
                     </div>
                 </div>
@@ -535,39 +525,106 @@
                         <h2 class="text-xl md:text-2xl font-bold text-gray-800">Manage Customer Orders</h2>
                     </div>
                     <div id="admin-order-list" class="space-y-4">
-                        <!-- Orders -->
                         <p class="text-gray-500 bg-white p-4 rounded shadow-sm">Loading orders...</p>
                     </div>
                 </div>
 
                 <!-- Settings Tab -->
-                <div id="admin-settings" class="admin-tab-content hidden">
-                    <div class="bg-white p-4 rounded shadow-sm border-l-4 border-gray-500 mb-6">
+                <div id="admin-settings" class="admin-tab-content hidden space-y-6">
+                    <div class="bg-white p-4 rounded shadow-sm border-l-4 border-gray-500">
                         <h2 class="text-xl md:text-2xl font-bold text-gray-800">Website Settings</h2>
+                    </div>
+
+                    <!-- Custom Gemini API Settings -->
+                    <div class="bg-white p-6 rounded shadow-sm border border-blue-200">
+                        <h3 class="font-bold mb-3 text-lg border-b pb-2 text-blue-700"><i class="fas fa-brain"></i> Gemini API Key Config</h3>
+                        <div class="flex flex-col gap-3 max-w-xl">
+                            <label class="text-sm font-bold text-gray-600">Your Gemini API Key (For Support & Automated Screenshot Checking)</label>
+                            <input type="password" id="setting-gemini-key" placeholder="Enter custom Gemini AI Key here..." class="border p-2 w-full rounded focus:outline-blue-500 bg-gray-50">
+                            <button id="save-gemini-btn" class="bg-blue-600 text-white px-6 py-2 rounded font-bold hover:bg-blue-700 shadow w-fit mt-1">Save API Key</button>
+                        </div>
                     </div>
                     
                     <!-- UPI Settings for Payment -->
-                    <div class="bg-white p-6 rounded shadow-sm mb-6 border border-green-200">
+                    <div class="bg-white p-6 rounded shadow-sm border border-green-200">
                         <h3 class="font-bold mb-3 text-lg border-b pb-2 text-green-700"><i class="fas fa-rupee-sign"></i> Online Payment Settings (UPI)</h3>
                         <div class="flex flex-col gap-3 max-w-md">
                             <label class="text-sm font-bold text-gray-600">Admin UPI ID (Required for Online Payments)</label>
                             <input type="text" id="setting-upi-id" placeholder="e.g. 9876543210@ybl" class="border p-2 w-full rounded focus:outline-green-500 bg-gray-50">
-                            <button id="save-upi-btn" class="bg-green-600 text-white px-6 py-2 rounded font-bold hover:bg-green-700 shadow w-fit">Update UPI ID</button>
+                            
+                            <!-- QR Scanner upload -->
+                            <label class="text-sm font-bold text-gray-600 mt-2">Upload UPI QR Scanner (Scanner QR Code)</label>
+                            <input type="file" id="setting-qr-file" accept="image/*" class="border p-2 w-full bg-white rounded">
+                            <div id="qr-preview-admin" class="mt-2 min-h-[100px] border border-dashed rounded p-2 bg-gray-50 flex items-center justify-center">
+                                <span class="text-xs text-gray-400">No QR scanner uploaded</span>
+                            </div>
+
+                            <button id="save-upi-btn" class="bg-green-600 text-white px-6 py-2 rounded font-bold hover:bg-green-700 shadow w-fit mt-2">Update UPI Settings</button>
                         </div>
                     </div>
 
-                    <div class="bg-white p-6 rounded shadow-sm mb-6 border">
+                    <!-- Dynamic Category Manager -->
+                    <div class="bg-white p-6 rounded shadow-sm border">
+                        <h3 class="font-bold mb-3 text-lg border-b pb-2"><i class="fas fa-tags text-indigo-600"></i> Category Management</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Category Add form -->
+                            <div class="space-y-4">
+                                <h4 class="font-bold text-sm text-gray-700 uppercase">Create New Category</h4>
+                                <div>
+                                    <label class="text-xs font-bold text-gray-600 block mb-1">Category Name</label>
+                                    <input type="text" id="new-cat-name" placeholder="e.g. Toys, Kitchen" class="border p-2 w-full rounded focus:outline-indigo-500">
+                                </div>
+                                <div>
+                                    <label class="text-xs font-bold text-gray-600 block mb-1">Upload Category Image</label>
+                                    <input type="file" id="new-cat-img-file" accept="image/*" class="border p-2 w-full rounded focus:outline-indigo-500 bg-gray-50">
+                                </div>
+                                <button id="add-category-btn" class="bg-indigo-600 text-white px-6 py-2 rounded font-bold hover:bg-indigo-700 shadow">Create Category</button>
+                            </div>
+                            
+                            <!-- Category list table -->
+                            <div>
+                                <h4 class="font-bold text-sm text-gray-700 uppercase mb-3">Existing Store Categories</h4>
+                                <div class="border rounded max-h-60 overflow-y-auto">
+                                    <table class="w-full text-left border-collapse">
+                                        <thead class="bg-gray-100 border-b">
+                                            <tr>
+                                                <th class="p-2 text-xs font-bold">Icon/Image</th>
+                                                <th class="p-2 text-xs font-bold">Category Name</th>
+                                                <th class="p-2 text-xs font-bold text-center">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="admin-category-list" class="divide-y text-sm"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded shadow-sm border">
                         <h3 class="font-bold mb-3 text-lg border-b pb-2">Change Site Logo</h3>
                         <div class="flex flex-col sm:flex-row items-center gap-4">
                             <input type="file" id="setting-logo" accept="image/*" class="border p-2 w-full max-w-md bg-gray-50 rounded">
                             <button id="save-logo-btn" class="bg-blue-600 text-white px-6 py-2 rounded font-bold hover:bg-blue-700 shadow">Update Logo</button>
                         </div>
                     </div>
+
+                    <!-- Home Page Banners with File Upload -->
                     <div class="bg-white p-6 rounded shadow-sm border">
-                        <h3 class="font-bold mb-3 text-lg border-b pb-2">Home Page Banners (Upload Multiple)</h3>
-                        <input type="file" id="setting-banners" multiple accept="image/*" class="border p-2 w-full max-w-md bg-gray-50 rounded mb-3">
-                        <button id="save-banners-btn" class="bg-green-600 text-white px-6 py-2 rounded font-bold hover:bg-green-700 shadow block">Update Banners</button>
-                        <div id="banner-preview-admin" class="flex gap-2 mt-4 overflow-x-auto p-2 bg-gray-100 rounded min-h-[100px]"></div>
+                        <h3 class="font-bold mb-3 text-lg border-b pb-2"><i class="fas fa-image"></i> Home Page Banners</h3>
+                        <div class="space-y-4">
+                            <div class="flex flex-col sm:flex-row gap-3">
+                                <input type="file" id="setting-banner-file" accept="image/*" class="border p-2 flex-1 rounded focus:outline-green-500 bg-gray-50">
+                                <button id="add-banner-file-btn" class="bg-green-600 text-white px-6 py-2 rounded font-bold hover:bg-green-700 shadow">Upload & Add Banner</button>
+                            </div>
+                            
+                            <!-- Banners Preview & Delete Manager -->
+                            <div class="mt-4">
+                                <h4 class="font-bold text-sm text-gray-700 uppercase mb-3">Current Active Banners</h4>
+                                <div id="banner-links-preview-admin" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                                    <!-- Dynamic banner previews here -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -576,9 +633,7 @@
                     <h2 class="text-xl font-bold p-4 border-b bg-gray-50">Customer Support Messages</h2>
                     <div class="flex flex-1 overflow-hidden flex-col md:flex-row">
                         <!-- User List -->
-                        <div id="admin-chat-users" class="w-full md:w-1/3 border-r overflow-y-auto bg-white divide-y max-h-40 md:max-h-full">
-                            <!-- Users list -->
-                        </div>
+                        <div id="admin-chat-users" class="w-full md:w-1/3 border-r overflow-y-auto bg-white divide-y max-h-40 md:max-h-full"></div>
                         <!-- Chat Box -->
                         <div class="w-full md:w-2/3 flex flex-col bg-gray-50 h-full">
                             <!-- Header with AI toggle -->
@@ -615,8 +670,29 @@
                 <h3 class="text-lg font-bold">Order Full Details</h3>
                 <button onclick="document.getElementById('order-details-modal').classList.add('hidden')" class="text-white hover:text-gray-200 text-2xl"><i class="fas fa-times"></i></button>
             </div>
-            <div id="order-details-content" class="p-6">
-                <!-- Injected via JS -->
+            <div id="order-details-content" class="p-6"></div>
+        </div>
+    </div>
+
+    <!-- Custom Dialog Alerts Modal -->
+    <div id="custom-alert-modal" class="fixed inset-0 modal-overlay hidden flex items-center justify-center p-4 z-[300]">
+        <div class="bg-white rounded-lg p-6 max-w-sm w-full text-center shadow-2xl border">
+            <i class="fas fa-exclamation-triangle text-orange-500 text-4xl mb-3"></i>
+            <h3 id="custom-alert-title" class="text-lg font-bold text-gray-800 mb-2">Attention</h3>
+            <p id="custom-alert-message" class="text-gray-600 text-sm mb-4"></p>
+            <button onclick="document.getElementById('custom-alert-modal').classList.add('hidden')" class="bg-brand text-white font-bold px-6 py-2 rounded shadow hover:bg-blue-700 transition">OK</button>
+        </div>
+    </div>
+
+    <!-- Custom Confirmation Modal -->
+    <div id="custom-confirm-modal" class="fixed inset-0 modal-overlay hidden flex items-center justify-center p-4 z-[300]">
+        <div class="bg-white rounded-lg p-6 max-w-sm w-full text-center shadow-2xl border">
+            <i class="fas fa-question-circle text-blue-500 text-4xl mb-3"></i>
+            <h3 id="custom-confirm-title" class="text-lg font-bold text-gray-800 mb-2">Are you sure?</h3>
+            <p id="custom-confirm-message" class="text-gray-600 text-sm mb-4"></p>
+            <div class="flex gap-3 justify-center">
+                <button id="custom-confirm-yes" class="bg-green-600 text-white font-bold px-5 py-2 rounded shadow hover:bg-green-700 transition">Yes</button>
+                <button id="custom-confirm-no" class="bg-gray-300 text-gray-700 font-bold px-5 py-2 rounded shadow hover:bg-gray-400 transition">Cancel</button>
             </div>
         </div>
     </div>
@@ -628,8 +704,8 @@
         import { getFirestore, collection, addDoc, getDocs, onSnapshot, doc, updateDoc, deleteDoc, setDoc, getDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-        // Gemini API configuration for AI tasks
-        const apiKey = ""; // System environment provides key at runtime
+        // Gemini Backup API key
+    ;
 
         const firebaseConfig = {
             apiKey: "AIzaSyAXLuPDgPNGT1IX1kTE-3H1SCdpak1RT2s",
@@ -648,16 +724,36 @@
         // State Variables
         let products = [];
         let cart = [];
-        let wishlist = []; // Array of product IDs (strings)
+        let wishlist = []; 
         let currentUser = null;
-        let siteSettings = { logo: '', banners: [], upiId: '' }; // Added upiId
+        let siteSettings = { logo: '', banners: [], upiId: '', upiQR: '', categories: [], geminiApiKey: '' }; 
         
-        // New State for Filtering/Searching
         let currentCategoryFilter = '';
         let currentSearchQuery = '';
         let currentViewedProductId = null;
+        let selectedProductSize = null;
 
-        // Base64 Converter
+        // Custom UI Modal functions
+        function showCustomAlert(title, msg) {
+            E('custom-alert-title').innerText = title;
+            E('custom-alert-message').innerText = msg;
+            E('custom-alert-modal').classList.remove('hidden');
+        }
+
+        function showCustomConfirm(title, msg, onConfirm) {
+            E('custom-confirm-title').innerText = title;
+            E('custom-confirm-message').innerText = msg;
+            E('custom-confirm-modal').classList.remove('hidden');
+            E('custom-confirm-yes').onclick = () => {
+                E('custom-confirm-modal').classList.add('hidden');
+                onConfirm();
+            };
+            E('custom-confirm-no').onclick = () => {
+                E('custom-confirm-modal').classList.add('hidden');
+            };
+        }
+
+        // Base64 Converter (Auto Compresses images to fit within 1MB limits in Firestore)
         const fileToBase64 = (file) => {
             return new Promise((resolve) => {
                 const reader = new FileReader();
@@ -667,7 +763,6 @@
                     img.src = e.target.result;
                     img.onload = () => {
                         const canvas = document.createElement('canvas');
-                        // Use 500 for better compression to avoid Firestore limits
                         const MAX_SIZE = 500;
                         let width = img.width;
                         let height = img.height;
@@ -682,7 +777,8 @@
                         canvas.height = height;
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
-                        resolve(canvas.toDataURL('image/jpeg', 0.5)); // 0.5 quality compression
+                        // Using high compression (0.5 jpeg) to ensure multiple images fit well within 1MB firestore doc limit
+                        resolve(canvas.toDataURL('image/jpeg', 0.5)); 
                     };
                 };
             });
@@ -691,7 +787,7 @@
         // Helpers
         const E = (id) => document.getElementById(id);
         
-        // Expose functions globally for inline HTML onclicks
+        // Expose functions globally
         window.toggleWishlist = toggleWishlist;
         window.updateQty = updateQty;
         window.editProduct = editProduct;
@@ -706,9 +802,21 @@
             const sec = E('online-payment-section');
             if(method === 'online') {
                 sec.classList.remove('hidden');
-                E('admin-upi-display').innerText = siteSettings.upiId || 'Not Setup by Admin';
+                const adminUpi = siteSettings.upiId || 'Not Setup by Admin';
+                E('admin-upi-display').innerText = adminUpi;
+                
                 const total = E('chk-amount').innerText.replace('₹', '');
                 E('pay-amount-display').innerText = `₹${total}`;
+                
+                const deepLinkUrl = `upi://pay?pa=${encodeURIComponent(adminUpi)}&pn=OriginalMiniProduct&am=${total}&cu=INR`;
+                E('chk-upi-app-btn').href = deepLinkUrl;
+
+                if(siteSettings.upiQR) {
+                    E('chk-qr-scanner-img').src = siteSettings.upiQR;
+                    E('chk-qr-scanner-container').classList.remove('hidden');
+                } else {
+                    E('chk-qr-scanner-container').classList.add('hidden');
+                }
             } else {
                 sec.classList.add('hidden');
             }
@@ -742,6 +850,7 @@
                 } else if (hash === '#checkout') {
                     E('view-checkout').classList.remove('hidden');
                     prefillCheckoutAddress();
+                    togglePaymentUI();
                 } else if (hash === '#wishlist') {
                     E('view-wishlist').classList.remove('hidden');
                     renderWishlist();
@@ -749,7 +858,6 @@
                     E('view-orders').classList.remove('hidden');
                     renderUserOrders();
                 } else {
-                    // Default view is Home (#home or empty hash)
                     E('view-home').classList.remove('hidden');
                     renderHomeProducts(); 
                 }
@@ -757,7 +865,6 @@
         }
         window.addEventListener('hashchange', handleRouting);
 
-        // Logo click logic (20 times for Admin, normally goes home)
         let logoClickCount = 0;
         E('logo-container').onclick = () => {
             logoClickCount++;
@@ -766,7 +873,7 @@
                 window.location.hash = '#OMP-admin';
             } else {
                 window.location.hash = '#home'; 
-                filterCategory(''); // Reset filters on logo click
+                filterCategory('');
             }
         };
 
@@ -797,9 +904,11 @@
         E('auth-btn-container').addEventListener('click', () => {
             if(!currentUser) {
                 const provider = new GoogleAuthProvider();
-                signInWithPopup(auth, provider).catch(err => alert("Login Error: " + err.message));
+                signInWithPopup(auth, provider).catch(err => showCustomAlert("Login Error", err.message));
             } else {
-                if(confirm("Do you want to log out?")) signOut(auth);
+                showCustomConfirm("Logout", "Do you want to log out?", () => {
+                    signOut(auth);
+                });
             }
         });
 
@@ -815,21 +924,55 @@
 
 
         // ==================== DATA FETCHING ====================
+        
+        // Exact 8 Categories required by screenshot user (without 'All Categories')
+        const defaultCategories = [
+            { name: "Mobiles", image: "https://img.icons8.com/color/96/000000/smartphone.png" },
+            { name: "Electronics", image: "https://img.icons8.com/color/96/000000/headphones.png" },
+            { name: "Fashion", image: "https://img.icons8.com/color/96/000000/t-shirt.png" },
+            { name: "Home", image: "https://img.icons8.com/color/96/000000/blender.png" },
+            { name: "Beauty", image: "https://img.icons8.com/color/96/000000/cosmetics.png" },
+            { name: "Toys", image: "https://img.icons8.com/color/96/000000/controller.png" },
+            { name: "Sports", image: "https://img.icons8.com/color/96/000000/soccer-ball.png" },
+            { name: "Books", image: "https://img.icons8.com/color/96/000000/book.png" }
+        ];
+
+        // Default Hero banners directly provided by user
+        const defaultBanners = [
+            "https://github.com/originalminiproduct/original-mini-product/blob/main/ChatGPT%20Image%20Jul%2011,%202026,%2004_00_20%20PM.png?raw=true",
+            "https://github.com/originalminiproduct/original-mini-product/blob/main/ChatGPT%20Image%20Jul%2011,%202026,%2004_02_15%20PM.png?raw=true"
+        ];
+
         onSnapshot(doc(db, "settings", "global"), (d) => {
             if(d.exists()) {
                 siteSettings = d.data();
+                if(!siteSettings.categories || siteSettings.categories.length === 0) {
+                    siteSettings.categories = defaultCategories;
+                }
+                if(!siteSettings.banners || siteSettings.banners.length === 0) {
+                    siteSettings.banners = defaultBanners;
+                }
                 if(siteSettings.logo) E('site-logo').src = siteSettings.logo;
+                
+                if(siteSettings.geminiApiKey) E('setting-gemini-key').value = siteSettings.geminiApiKey;
+                
+                renderDynamicStoreCategories();
+                renderBanners();
+                renderBannerLinksManager();
+            } else {
+                siteSettings.categories = defaultCategories;
+                siteSettings.banners = defaultBanners;
+                renderDynamicStoreCategories();
                 renderBanners();
             }
         });
         
-        // Search functionality
         const searchInput = E('search-input');
         const searchBtn = E('search-btn-trigger');
         
         function handleSearch() {
             currentSearchQuery = searchInput.value.trim().toLowerCase();
-            window.location.hash = '#home'; // Go to home to show results
+            window.location.hash = '#home'; 
             renderHomeProducts();
         }
         
@@ -838,9 +981,9 @@
 
         function filterCategory(cat) {
             currentCategoryFilter = cat;
-            currentSearchQuery = ''; // Clear search when category is clicked
+            currentSearchQuery = ''; 
             searchInput.value = '';
-            window.location.hash = '#home'; // Ensure we are on home view
+            window.location.hash = '#home'; 
             renderHomeProducts();
         }
 
@@ -856,10 +999,92 @@
         });
 
         // ==================== RENDER STORE UI ====================
+        function renderDynamicStoreCategories() {
+            const list = siteSettings.categories || defaultCategories;
+            
+            // 1. Render Top Header Bar categories
+            const topNav = E('dynamic-nav-categories');
+            topNav.innerHTML = `
+                <div class="cursor-pointer hover:text-brand" onclick="filterCategory('')">Home</div>
+                ${list.map(c => `<div class="cursor-pointer hover:text-brand" onclick="filterCategory('${c.name}')">${c.name}</div>`).join('')}
+            `;
+
+            // 2. Render Circular home elements (styled like the screenshot)
+            const circContainer = E('dynamic-circular-categories');
+            circContainer.innerHTML = list.map(c => `
+                <div class="flex flex-col items-center min-w-[80px] cursor-pointer hover:text-brand group" onclick="filterCategory('${c.name}')">
+                    <div class="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center shadow-sm mb-2 group-hover:shadow-md transition bg-white border">
+                        <img src="${c.image}" class="w-8 h-8 object-contain">
+                    </div>
+                    <span class="text-xs font-semibold text-gray-700">${c.name}</span>
+                </div>
+            `).join('');
+
+            // 3. Dynamic Category selector inside Product Edit/Add form
+            const prodSelector = E('prod-category');
+            prodSelector.innerHTML = `
+                <option value="" disabled selected>--Select Category--</option>
+                ${list.map(c => `<option value="${c.name}">${c.name}</option>`).join('')}
+                <option value="More">More</option>
+            `;
+
+            // 4. Render category manager list inside settings
+            const mgrTable = E('admin-category-list');
+            mgrTable.innerHTML = list.map((c, idx) => `
+                <tr>
+                    <td class="p-2"><img src="${c.image}" class="w-8 h-8 rounded-full object-contain bg-white border"></td>
+                    <td class="p-2 font-semibold text-gray-800">${c.name}</td>
+                    <td class="p-2 text-center">
+                        <button onclick="deleteStoreCategory(${idx})" class="text-red-500 hover:text-red-700"><i class="fas fa-trash-alt"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Add store category from Admin panel via File Upload -> Base64
+        E('add-category-btn').onclick = async () => {
+            const name = E('new-cat-name').value.trim();
+            const file = E('new-cat-img-file').files[0];
+            
+            if(!name || !file) return showCustomAlert("Required Field", "Please type the Category Name and select an image file to upload.");
+            
+            const btn = E('add-category-btn');
+            btn.innerText = "Compressing & Uploading...";
+            btn.disabled = true;
+
+            try {
+                const imgB64 = await fileToBase64(file);
+                const currentList = siteSettings.categories || [...defaultCategories];
+                currentList.push({ name: name, image: imgB64 });
+
+                await setDoc(doc(db, "settings", "global"), { categories: currentList }, { merge: true });
+                
+                E('new-cat-name').value = '';
+                E('new-cat-img-file').value = '';
+                showCustomAlert("Success", "Category created & image saved to cloud successfully!");
+            } catch(e) {
+                showCustomAlert("Upload Failed", e.message);
+            } finally {
+                btn.innerText = "Create Category";
+                btn.disabled = false;
+            }
+        };
+
+        window.deleteStoreCategory = async (idx) => {
+            showCustomConfirm("Delete Category", "Are you sure you want to delete this category?", async () => {
+                const currentList = [...siteSettings.categories];
+                currentList.splice(idx, 1);
+                await setDoc(doc(db, "settings", "global"), { categories: currentList }, { merge: true });
+                showCustomAlert("Deleted", "Category deleted successfully.");
+            });
+        };
+
         function renderBanners() {
             const container = E('banner-container');
             if(siteSettings.banners && siteSettings.banners.length > 0) {
                 container.innerHTML = siteSettings.banners.map(b => `<img src="${b}" class="carousel-item object-cover w-full h-full">`).join('');
+            } else {
+                container.innerHTML = '<div class="flex items-center justify-center w-full h-full text-gray-500">No Banners active. Add some banners from the settings!</div>';
             }
         }
         
@@ -881,7 +1106,7 @@
                     p.name.toLowerCase().includes(currentSearchQuery) || 
                     (p.category && p.category.toLowerCase().includes(currentSearchQuery)) ||
                     (p.description && p.description.toLowerCase().includes(currentSearchQuery))
-                );
+                 );
                 title.innerText = `Search Results for "${currentSearchQuery}"`;
             } else {
                 title.innerText = "Best of Original Mini Product";
@@ -894,6 +1119,8 @@
             grid.innerHTML = filteredProducts.map(p => {
                 const img = p.images && p.images.length > 0 ? p.images[0] : 'https://via.placeholder.com/200';
                 const isWished = wishlist.includes(p.id);
+                // Free or delivery charges string logic
+                const deliveryStr = p.deliveryPrice && p.deliveryPrice > 0 ? `+ ₹${p.deliveryPrice} Delivery` : 'Free Delivery';
                 return `
                 <div class="bg-white border rounded shadow-sm hover:shadow-md transition relative flex flex-col group p-3">
                     <button class="absolute top-3 right-3 text-gray-300 hover:text-red-500 z-10 text-xl transition" onclick="event.stopPropagation(); toggleWishlist('${p.id}')">
@@ -905,7 +1132,7 @@
                     </div>
                     <div class="mt-3 flex flex-col flex-1 cursor-pointer" onclick="window.location.hash='#product-${p.id}'">
                         <div class="font-semibold text-gray-800 line-clamp-2 text-sm sm:text-base leading-tight min-h-[40px] hover:text-brand">${p.name}</div>
-                        <div class="text-xs text-gray-500 mt-1">${p.category || 'General'}</div>
+                        <div class="text-xs text-gray-500 mt-1">${p.category || 'General'} | <span class="font-semibold text-blue-600">${deliveryStr}</span></div>
                         <div class="mt-2 flex items-center gap-2">
                             <span class="font-bold text-lg">₹${p.realPrice}</span>
                             <span class="text-xs text-gray-500 line-through">₹${p.fakePrice}</span>
@@ -914,7 +1141,7 @@
                     </div>
                     <button class="w-full mt-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded shadow flex justify-center items-center gap-2 transition disabled:opacity-50 disabled:cursor-not-allowed" 
                         ${!p.available ? 'disabled' : ''} 
-                        onclick="addToCart('${p.id}')">
+                        onclick="addToCart('${p.id}', false)">
                         <i class="fas fa-shopping-cart"></i> Add to Cart
                     </button>
                 </div>
@@ -932,6 +1159,43 @@
             E('pd-fake-price').innerText = `₹${p.fakePrice}`;
             E('pd-discount').innerText = `${p.discount}% OFF`;
             E('pd-description').innerText = p.description;
+
+            const delInfo = E('pd-delivery-info');
+            if (p.deliveryPrice && p.deliveryPrice > 0) {
+                delInfo.innerHTML = `<span class="text-gray-700 font-semibold text-sm bg-gray-100 px-2.5 py-1 rounded inline-block"><i class="fas fa-truck text-brand"></i> Delivery Charge: ₹${p.deliveryPrice}</span>`;
+            } else {
+                delInfo.innerHTML = `<span class="text-green-700 font-semibold text-sm bg-green-50 px-2.5 py-1 rounded inline-block"><i class="fas fa-truck"></i> Free Delivery</span>`;
+            }
+
+            selectedProductSize = null;
+            const sizeContainer = E('pd-size-container');
+            const sizesList = E('pd-sizes-list');
+            
+            if (p.sizes && p.sizes.length > 0) {
+                sizeContainer.classList.remove('hidden');
+                
+                const firstOption = p.sizes[0].toLowerCase();
+                if(firstOption.includes('red') || firstOption.includes('blue') || firstOption.includes('green')) {
+                    E('pd-size-label').innerText = "Select Color Option";
+                } else {
+                    E('pd-size-label').innerText = "Select Size / Option";
+                }
+
+                sizesList.innerHTML = p.sizes.map(sz => `
+                    <button type="button" class="pd-size-bubble border-2 border-gray-300 rounded-md px-3 py-1.5 font-bold text-gray-700 bg-white hover:border-brand transition text-sm" data-size="${sz}">${sz}</button>
+                `).join('');
+                
+                sizesList.querySelectorAll('.pd-size-bubble').forEach(btn => {
+                    btn.onclick = () => {
+                        sizesList.querySelectorAll('.pd-size-bubble').forEach(b => b.classList.remove('border-brand', 'bg-blue-50', 'text-brand'));
+                        btn.classList.add('border-brand', 'bg-blue-50', 'text-brand');
+                        selectedProductSize = btn.dataset.size;
+                        E('pd-sizes-list').classList.remove('border', 'border-red-500', 'p-2', 'rounded-md'); // clear error state
+                    }
+                });
+            } else {
+                sizeContainer.classList.add('hidden');
+            }
 
             // Images
             const thumbs = E('pd-thumbnails');
@@ -954,31 +1218,27 @@
                 E('pd-main-img').src = 'https://via.placeholder.com/400';
             }
 
-            // Buttons & Stock
             const btnCart = E('pd-btn-cart');
             const btnBuy = E('pd-btn-buy');
             const status = E('pd-stock-status');
             
             if(!p.available) {
-                status.innerHTML = '<span class="text-red-600">Currently Out of Stock.</span>';
+                status.innerHTML = '<span class="text-red-600 font-bold bg-red-50 px-3 py-1 rounded inline-block">Currently Out of Stock.</span>';
                 btnCart.disabled = true; btnCart.classList.add('opacity-50', 'cursor-not-allowed');
                 btnBuy.disabled = true; btnBuy.classList.add('opacity-50', 'cursor-not-allowed');
             } else {
-                status.innerHTML = '<span class="text-green-600">In Stock</span>';
+                status.innerHTML = '<span class="text-green-600 font-bold bg-green-50 px-3 py-1 rounded inline-block">In Stock</span>';
                 btnCart.disabled = false; btnCart.classList.remove('opacity-50', 'cursor-not-allowed');
                 btnBuy.disabled = false; btnBuy.classList.remove('opacity-50', 'cursor-not-allowed');
             }
 
-            // Wishlist Btn inside Product Details
             const wIcon = E('pd-wishlist-icon');
             wIcon.innerHTML = wishlist.includes(p.id) ? '<i class="fas fa-heart text-red-500 shadow-sm bg-white rounded-full p-2"></i>' : '<i class="far fa-heart bg-white shadow-sm rounded-full p-2 text-gray-400"></i>';
             wIcon.onclick = () => toggleWishlist(p.id);
 
-            // Add Actions
-            btnCart.onclick = () => { addToCart(p.id); alert("Added to Cart successfully!"); };
-            btnBuy.onclick = () => { addToCart(p.id); window.location.hash = '#cart'; };
+            btnCart.onclick = () => { addToCart(p.id, false); };
+            btnBuy.onclick = () => { addToCart(p.id, true); };
             
-            // Load Reviews
             loadReviews(p.id);
         }
         
@@ -990,20 +1250,19 @@
             productReviewsUnsub = onSnapshot(reviewsRef, (snap) => {
                 let reviews = snap.docs.map(d => ({id: d.id, ...d.data()})).sort((a,b) => b.date - a.date);
                 
-                // Add a default 5-star review so it is never empty as requested
                 const defaultReview = {
                     rating: 5,
                     title: "Excellent Product!",
                     text: "Very satisfied with the quality and delivery. 100% recommended.",
                     userName: "Verified Customer",
                     verified: true,
-                    date: Date.now() - (86400000 * 2) // 2 days ago
+                    date: Date.now() - (86400000 * 2) 
                 };
                 
-                reviews = [...reviews, defaultReview]; // Append default
+                reviews = [...reviews, defaultReview]; 
                 
                 renderReviewsList(reviews);
-                checkIfCanReview(productId); // Check if user bought it
+                checkIfCanReview(productId); 
             });
         }
         
@@ -1036,7 +1295,6 @@
             rateBtn.classList.add('hidden');
             if(!currentUser) return;
 
-            // Check if user has an order containing this product
             const ordersRef = collection(db, "orders");
             const q = query(ordersRef); 
             
@@ -1058,7 +1316,6 @@
             }
         }
         
-        // Star Rating Logic
         const stars = document.querySelectorAll('#star-rating-input i');
         stars.forEach(star => {
             star.onclick = (e) => {
@@ -1086,7 +1343,7 @@
             const title = E('review-title').value.trim();
             const text = E('review-text').value.trim();
             
-            if(rating === 0) return alert("Please select a star rating.");
+            if(rating === 0) return showCustomAlert("Rating Required", "Please select a star rating first.");
             
             try {
                 E('submit-review-btn').innerText = "Submitting...";
@@ -1101,14 +1358,13 @@
                 });
                 
                 E('review-input-area').classList.add('hidden');
-                // Reset form
                 E('selected-rating').value = 0;
                 E('review-title').value = '';
                 E('review-text').value = '';
                 stars.forEach(s => { s.classList.add('text-gray-300'); s.classList.remove('text-yellow-400'); });
-                alert("Review submitted successfully!");
+                showCustomAlert("Success", "Review submitted successfully!");
             } catch(e) {
-                alert("Error submitting review: " + e.message);
+                showCustomAlert("Error", "Error submitting review: " + e.message);
             } finally {
                 E('submit-review-btn').innerText = "Submit";
             }
@@ -1116,9 +1372,9 @@
 
         // ==================== CART & WISHLIST LOGIC ====================
         function toggleWishlist(pid) {
-            if(!currentUser) return alert("Please Login to add items to Wishlist!");
+            if(!currentUser) return showCustomAlert("Login required", "Please Login to add items to Wishlist!");
             if(wishlist.includes(pid)) {
-                wishlist = wishlist.filter(id => id !== pid); // Exact string match removal
+                wishlist = wishlist.filter(id => id !== pid); 
             } else {
                 wishlist.push(pid);
             }
@@ -1155,31 +1411,61 @@
             `).join('');
         }
 
-        function addToCart(pid) {
-            if(!currentUser) return alert("Please Login to add items to Cart!");
-            const existing = cart.find(i => i.pid === pid);
-            if(existing) existing.qty += 1;
-            else cart.push({pid, qty: 1});
+        function addToCart(pid, buyNow = false) {
+            if(!currentUser) return showCustomAlert("Login Required", "Please Login to buy or add items to Cart!");
+            
+            const p = products.find(x => x.id === pid);
+            if (!p) return;
+
+            if (p.sizes && p.sizes.length > 0) {
+                if (!selectedProductSize) {
+                    window.location.hash = `#product-${pid}`;
+                    E('pd-size-container').scrollIntoView({ behavior: 'smooth' });
+                    E('pd-sizes-list').classList.add('border', 'border-red-500', 'p-2', 'rounded-md');
+                    showCustomAlert("Select Option", "Please select a size/option first before proceeding!");
+                    return;
+                }
+            }
+
+            const existing = cart.find(i => i.pid === pid && i.size === selectedProductSize);
+            if(existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({pid, qty: 1, size: selectedProductSize});
+            }
             saveUserData();
             updateCartCount();
+
+            if (buyNow) {
+                window.location.hash = '#checkout';
+            } else {
+                showCustomAlert("Success", "Product added to Cart successfully!");
+            }
         }
 
         function updateCartCount() {
             const el = E('cart-count');
+            const mobileEl = E('mobile-cart-badge');
             let totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            
             if(totalQty > 0) {
                 el.innerText = totalQty;
                 el.classList.remove('hidden');
+                if (mobileEl) {
+                    mobileEl.innerText = totalQty;
+                    mobileEl.classList.remove('hidden');
+                }
             } else {
                 el.classList.add('hidden');
+                if (mobileEl) mobileEl.classList.add('hidden');
             }
         }
 
-        function updateQty(pid, change) {
-            const item = cart.find(i => i.pid === pid);
+        function updateQty(pid, size, change) {
+            const item = cart.find(i => i.pid === pid && i.size === size);
             if(item) {
                 item.qty += change;
-                if(item.qty <= 0) cart = cart.filter(i => i.pid !== pid);
+                if(item.qty <= 0) cart = cart.filter(i => !(i.pid === pid && i.size === size));
                 saveUserData();
                 renderCart();
                 updateCartCount();
@@ -1195,32 +1481,43 @@
                 E('cart-total-real').innerText = '₹0';
                 E('cart-savings').innerText = '₹0';
                 E('cart-item-count').innerText = '0';
+                E('cart-total-delivery').innerText = 'Free';
                 E('cart-footer').style.display = 'none';
                 return;
             }
             E('cart-footer').style.display = 'flex';
 
-            let fakeTotal = 0, realTotal = 0;
+            let fakeTotal = 0, realTotal = 0, totalDeliveryCharge = 0;
             let totalItems = 0;
             container.innerHTML = cart.map(item => {
                 const p = products.find(x => x.id === item.pid);
                 if(!p) return ''; 
                 fakeTotal += p.fakePrice * item.qty;
                 realTotal += p.realPrice * item.qty;
+                
+                const dCharge = p.deliveryPrice ? parseFloat(p.deliveryPrice) : 0;
+                totalDeliveryCharge += dCharge * item.qty;
+                
                 totalItems += item.qty;
+                
+                const sizeBadge = item.size ? `<span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-0.5 rounded">Option: ${item.size}</span>` : '';
+                const deliveryStatusStr = dCharge > 0 ? `₹${dCharge} Delivery` : 'Free Delivery';
+
                 return `
-                <div class="flex flex-col sm:flex-row border-b p-4 gap-6 relative">
+                <div class="flex flex-col sm:flex-row border-b p-4 gap-6 relative bg-white">
                     <div class="flex flex-col items-center gap-3 w-full sm:w-32 shrink-0">
                         <img src="${p.images?.[0]}" class="h-24 w-24 object-contain">
                         <div class="flex items-center gap-2">
-                            <button onclick="updateQty('${p.id}', -1)" class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center font-bold bg-white hover:bg-gray-100 disabled:opacity-30" ${item.qty<=1?'disabled':''}>-</button>
+                            <button onclick="updateQty('${p.id}', ${item.size ? `'${item.size}'` : 'null'}, -1)" class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center font-bold bg-white hover:bg-gray-100 disabled:opacity-30" ${item.qty<=1?'disabled':''}>-</button>
                             <span class="font-semibold px-2 border w-12 text-center bg-white h-8 flex items-center justify-center">${item.qty}</span>
-                            <button onclick="updateQty('${p.id}', 1)" class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center font-bold bg-white hover:bg-gray-100">+</button>
+                            <button onclick="updateQty('${p.id}', ${item.size ? `'${item.size}'` : 'null'}, 1)" class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center font-bold bg-white hover:bg-gray-100">+</button>
                         </div>
                     </div>
                     <div class="flex-1">
                         <div class="font-semibold text-lg line-clamp-2 hover:text-brand cursor-pointer" onclick="window.location.hash='#product-${p.id}'">${p.name}</div>
-                        <div class="text-sm text-gray-500 mt-1">${p.category || 'General'}</div>
+                        <div class="text-sm text-gray-500 mt-1 flex flex-wrap items-center gap-2">
+                           <span>Category: ${p.category || 'General'}</span> ${sizeBadge} | <span class="text-blue-600 font-semibold text-xs">${deliveryStatusStr}</span>
+                        </div>
                         <div class="flex items-center gap-3 mt-3">
                             <span class="font-bold text-xl text-black">₹${p.realPrice}</span>
                             <span class="text-gray-500 line-through text-sm">₹${p.fakePrice}</span>
@@ -1229,15 +1526,18 @@
                         ${!p.available ? '<div class="text-red-500 font-bold text-sm mt-2">Currently out of stock</div>' : ''}
                         
                         <div class="mt-4 flex gap-6">
-                            <button onclick="let c=confirm('Remove this item?'); if(c) { cart=cart.filter(i=>i.pid!=='${p.id}'); saveUserData(); renderCart(); updateCartCount(); }" class="font-semibold hover:text-brand uppercase text-sm">Remove</button>
+                            <button onclick="showCustomConfirm('Remove Item', 'Remove this item from your cart?', () => { cart=cart.filter(i=>!(i.pid==='${p.id}' && i.size===${item.size ? `'${item.size}'` : 'null'})); saveUserData(); renderCart(); updateCartCount(); });" class="font-semibold text-red-500 hover:text-red-700 uppercase text-sm">Remove</button>
                         </div>
                     </div>
                 </div>`;
             }).join('');
 
+            const finalCalculatedTotal = realTotal + totalDeliveryCharge;
+
             E('cart-total-fake').innerText = `₹${fakeTotal}`;
             E('cart-total-discount').innerText = `-₹${fakeTotal - realTotal}`;
-            E('cart-total-real').innerText = `₹${realTotal}`;
+            E('cart-total-delivery').innerText = totalDeliveryCharge > 0 ? `₹${totalDeliveryCharge}` : 'Free';
+            E('cart-total-real').innerText = `₹${finalCalculatedTotal}`;
             E('cart-savings').innerText = `₹${fakeTotal - realTotal}`;
             E('cart-item-count').innerText = totalItems;
         }
@@ -1247,7 +1547,7 @@
                 const p = products.find(x => x.id === i.pid);
                 return p && !p.available;
             });
-            if(hasUnavailable) return alert("Some items in your cart are out of stock. Please remove them to proceed.");
+            if(hasUnavailable) return showCustomAlert("Stock Alert", "Some items in your cart are out of stock. Please remove them to proceed.");
             window.location.hash = '#checkout';
             E('chk-amount').innerText = E('cart-total-real').innerText;
         };
@@ -1269,9 +1569,15 @@
             }
         }
         
-        async function verifyPaymentWithGemini(base64Img) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            const b64Data = base64Img.split(',')[1];
+        async function verifyPaymentWithGemini(file) {
+            const activeKey = siteSettings.geminiApiKey || backupApiKey;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${activeKey}`;
+            
+            const reader = new FileReader();
+            const b64Data = await new Promise((res) => {
+                 reader.onload = e => res(e.target.result.split(',')[1]);
+                 reader.readAsDataURL(file);
+            });
             
             const prompt = `Analyze this UPI payment screenshot. Extract the exact UPI ID the payment was sent to, and the total amount paid. 
             Respond ONLY with a valid JSON object matching this exact format:
@@ -1284,7 +1590,7 @@
                     contents: [{
                         parts: [
                             { text: prompt },
-                            { inlineData: { mimeType: "image/jpeg", data: b64Data } }
+                            { inlineData: { mimeType: file.type, data: b64Data } }
                         ]
                     }]
                 })
@@ -1308,7 +1614,7 @@
 
             if(method === 'online') {
                 const fileInput = E('payment-screenshot');
-                if(!fileInput.files[0]) return alert("Please upload the payment screenshot!");
+                if(!fileInput.files[0]) return showCustomAlert("Payment Screenshot Required", "Please upload the payment screenshot!");
                 
                 btn.disabled = true;
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying Payment via AI...';
@@ -1316,28 +1622,29 @@
                 statusDiv.innerText = "AI is analyzing your screenshot...";
                 
                 try {
-                    const b64 = await fileToBase64(fileInput.files[0]);
-                    const extractedData = await verifyPaymentWithGemini(b64);
+                    const file = fileInput.files[0];
+                    const extractedData = await verifyPaymentWithGemini(file);
                     
                     const exUpi = (extractedData.upiId || '').toLowerCase();
                     const expectedUpi = (siteSettings.upiId || '').toLowerCase();
                     const exAmt = parseFloat(extractedData.amount || 0);
                     
-                    // Simple UPI fuzzy check and Exact amount check
                     if(exUpi.includes(expectedUpi.split('@')[0]) && exAmt === total) {
                         statusDiv.classList.add('bg-green-100', 'text-green-700');
                         statusDiv.innerHTML = `<i class="fas fa-check-circle"></i> Verification Success! (Found: ₹${exAmt} to ${exUpi})`;
                         finalPaymentData.verified = true;
-                        finalPaymentData.screenshot = b64;
+                        
+                        // Compressed Image base64 for receipt verification proof saved directly
+                        finalPaymentData.screenshot = await fileToBase64(file);
                     } else {
                         statusDiv.classList.add('bg-red-100', 'text-red-700');
                         statusDiv.innerHTML = `<i class="fas fa-times-circle"></i> Verification Failed. <br>Expected: ₹${total} to ${expectedUpi}<br>Found in image: ₹${exAmt} to ${exUpi}`;
                         btn.disabled = false;
                         btn.innerHTML = 'CONFIRM ORDER';
-                        return; // Stop order placement
+                        return; 
                     }
                 } catch(err) {
-                    alert("AI Verification error. Image might be unclear.");
+                    showCustomAlert("Verification Error", "AI Verification error. Image might be blurry or incomplete.");
                     btn.disabled = false;
                     btn.innerHTML = 'CONFIRM ORDER';
                     return;
@@ -1351,7 +1658,9 @@
                     name: p.name,
                     price: p.realPrice,
                     image: p.images?.[0] || '',
-                    qty: item.qty
+                    qty: item.qty,
+                    size: item.size || null,
+                    deliveryPrice: p.deliveryPrice || 0
                 };
             });
 
@@ -1387,12 +1696,12 @@
                 if(E('chk-save-address').checked) {
                     await setDoc(doc(db, "users", currentUser.uid), { savedAddress: addressData }, { merge: true });
                 } else {
-                    await setDoc(doc(db, "users", currentUser.uid), { savedAddress: null }, { merge: true }); // clear if unchecked
+                    await setDoc(doc(db, "users", currentUser.uid), { savedAddress: null }, { merge: true }); 
                 }
 
                 cart = []; 
                 saveUserData();
-                alert("Order Placed Successfully!");
+                showCustomAlert("Order Placed", "Congratulations! Your Order has been Placed Successfully!");
                 window.location.hash = '#orders';
                 e.target.reset();
                 E('online-payment-section').classList.add('hidden');
@@ -1400,7 +1709,7 @@
                 btn.disabled = false;
                 btn.innerHTML = 'CONFIRM ORDER';
             } catch(err) {
-                alert("Order failed: " + err.message);
+                showCustomAlert("Order Failed", "Order failed: " + err.message);
                 btn.disabled = false;
                 btn.innerHTML = 'CONFIRM ORDER';
             }
@@ -1450,7 +1759,7 @@
                                     <img src="${i.image}" class="w-16 h-16 object-contain border p-1 rounded">
                                     <div class="flex-1">
                                         <div class="font-semibold line-clamp-1">${i.name}</div>
-                                        <div class="text-sm text-gray-500">Qty: ${i.qty} &times; ₹${i.price}</div>
+                                        <div class="text-sm text-gray-500">Qty: ${i.qty} &times; ₹${i.price} ${i.size ? `<span class="ml-2 bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs">Option: ${i.size}</span>` : ''}</div>
                                     </div>
                                 </div>
                             `).join('')}
@@ -1464,14 +1773,14 @@
         }
         
         async function cancelOrder(oid) {
-            if(confirm("Are you sure you want to cancel this order?")) {
+            showCustomConfirm("Cancel Order", "Are you sure you want to cancel this order?", async () => {
                 try {
                     await updateDoc(doc(db, "orders", oid), { status: 'Cancelled' });
-                    alert("Order cancelled successfully.");
+                    showCustomAlert("Cancelled", "Order cancelled successfully.");
                 } catch(e) {
-                    alert("Error cancelling order: " + e.message);
+                    showCustomAlert("Error", "Error cancelling order: " + e.message);
                 }
-            }
+            });
         }
 
 
@@ -1481,7 +1790,7 @@
         E('chat-close-btn').onclick = () => chatWidget.classList.add('chat-closed');
 
         let chatUnsubscribe = null;
-        let chatMessagesHistory = []; // Track current history
+        let chatMessagesHistory = []; 
         
         function initChatListener() {
             if(chatUnsubscribe) chatUnsubscribe();
@@ -1502,11 +1811,12 @@
                     cBox.appendChild(div);
                 });
                 cBox.scrollTop = cBox.scrollHeight;
-            });
+            }, (err) => console.log("Chat load error"));
         }
 
         async function fetchGeminiChatResponse(userMsg) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const activeKey = siteSettings.geminiApiKey || backupApiKey;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${activeKey}`;
             let context = `You are a helpful customer support AI for an e-commerce store called 'Original Mini Product'. Be polite, concise. Do not use markdown. Chat history:\n`;
             chatMessagesHistory.slice(-5).forEach(m => {
                 context += `${m.sender}: ${m.text}\n`;
@@ -1526,14 +1836,13 @@
         E('chat-send-btn').onclick = sendChatMessage;
         E('chat-input').onkeypress = (e) => { if(e.key === 'Enter') sendChatMessage(); }
         async function sendChatMessage() {
-            if(!currentUser) return alert("Please Login to start chatting!");
+            if(!currentUser) return showCustomAlert("Login Required", "Please Login to start chatting!");
             const input = E('chat-input');
             const text = input.value.trim();
             if(!text) return;
             
             input.value = '';
             
-            // Get user chat settings to check if AI is disabled by Admin
             const userChatDoc = await getDoc(doc(db, "chats", currentUser.uid));
             const aiDisabled = userChatDoc.exists() ? userChatDoc.data().aiDisabled : false;
 
@@ -1547,7 +1856,6 @@
                 text: text, sender: 'user', timestamp: Date.now()
             });
             
-            // Trigger AI if enabled
             if(!aiDisabled) {
                 E('chat-typing-indicator').classList.remove('hidden');
                 const aiResponse = await fetchGeminiChatResponse(text);
@@ -1581,7 +1889,7 @@
                 adminAuthOk = true;
                 checkAdminAuth();
             } else {
-                alert("Incorrect Password!");
+                showCustomAlert("Incorrect Password", "You have entered an incorrect admin password.");
             }
         };
 
@@ -1603,6 +1911,8 @@
 
         // Add Product Form Logic
         let selectedBase64Images = [];
+        let existingImageUrlsForEdit = [];
+
         E('btn-open-add-product').onclick = () => {
             E('product-form-container').classList.remove('hidden');
             E('form-title').innerText = "Add New Product";
@@ -1614,7 +1924,7 @@
             selectedBase64Images = []; 
             const files = Array.from(e.target.files);
             const preview = E('prod-images-preview');
-            preview.innerHTML = '<span class="text-sm text-gray-500 p-2">Compressing and Converting...</span>';
+            preview.innerHTML = '<span class="text-sm text-gray-500 p-2 font-bold">Compressing Images...</span>';
             
             for(let f of files) {
                 const b64 = await fileToBase64(f);
@@ -1629,37 +1939,54 @@
             const fake = parseFloat(E('prod-fake-price').value) || 0;
             const real = parseFloat(E('prod-real-price').value) || 0;
             const cat = E('prod-category').value;
+            const delPrice = parseFloat(E('prod-delivery-price').value) || 0;
+            const sizesRaw = E('prod-sizes').value;
             
-            if(!cat) return alert("Please select a category!");
+            if(!cat) return showCustomAlert("Category Required", "Please select a category!");
 
             let discount = 0;
             if(fake > real && fake > 0) discount = Math.round(((fake - real) / fake) * 100);
 
-            const data = {
-                name: E('prod-name').value,
-                category: cat,
-                fakePrice: fake,
-                realPrice: real,
-                discount: discount,
-                description: E('prod-desc').value,
-                available: E('prod-available').checked
-            };
-            if(selectedBase64Images.length > 0) data.images = selectedBase64Images;
+            const sizesArray = sizesRaw ? sizesRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
+
+            const btn = E('save-product-btn');
+            btn.innerText = "Saving Data...";
+            btn.disabled = true;
 
             try {
-                E('save-product-btn').innerText = "Saving...";
+                let finalImageUrls = existingImageUrlsForEdit;
+
+                // Use Base64 uploaded images if added
+                if(selectedBase64Images.length > 0) {
+                    finalImageUrls = selectedBase64Images;
+                }
+
+                const data = {
+                    name: E('prod-name').value,
+                    category: cat,
+                    fakePrice: fake,
+                    realPrice: real,
+                    discount: discount,
+                    deliveryPrice: delPrice,
+                    description: E('prod-desc').value,
+                    available: E('prod-available').checked,
+                    sizes: sizesArray,
+                    images: finalImageUrls
+                };
+                
                 if(id) {
                     await updateDoc(doc(db, "products", id), data);
                 } else {
                     await addDoc(collection(db, "products"), data);
                 }
-                alert("Product Saved Successfully!");
+                showCustomAlert("Saved", "Product Saved Successfully (Compressed to 1MB limit)");
                 E('product-form-container').classList.add('hidden');
                 resetAdminForm();
             } catch(e) {
-                alert("Error saving: " + e.message + "\n(Image payload may be too large)");
+                showCustomAlert("Error", "Error saving data. Details: " + e.message);
             } finally {
-                E('save-product-btn').innerText = "Save Product";
+                btn.innerText = "Save Product";
+                btn.disabled = false;
             }
         };
 
@@ -1669,16 +1996,21 @@
             E('prod-category').value = '';
             E('prod-fake-price').value = '';
             E('prod-real-price').value = '';
+            E('prod-delivery-price').value = '';
             E('prod-desc').value = '';
             E('prod-images').value = '';
             E('prod-images-preview').innerHTML = '';
             E('prod-available').checked = true;
+            E('prod-sizes').value = '';
             selectedBase64Images = [];
+            existingImageUrlsForEdit = [];
         }
 
         function editProduct(id) {
             const p = products.find(x => x.id === id);
             if(!p) return;
+            resetAdminForm();
+            
             E('product-form-container').classList.remove('hidden');
             E('form-title').innerText = "Edit Product";
             E('prod-id').value = p.id;
@@ -1686,17 +2018,21 @@
             E('prod-category').value = p.category || '';
             E('prod-fake-price').value = p.fakePrice;
             E('prod-real-price').value = p.realPrice;
+            E('prod-delivery-price').value = p.deliveryPrice || '';
             E('prod-desc').value = p.description;
             E('prod-available').checked = p.available;
-            selectedBase64Images = p.images || [];
-            E('prod-images-preview').innerHTML = selectedBase64Images.map(img => `<img src="${img}" class="h-16 object-contain border rounded bg-white">`).join('');
+            E('prod-sizes').value = p.sizes ? p.sizes.join(', ') : '';
+
+            existingImageUrlsForEdit = p.images || [];
+            E('prod-images-preview').innerHTML = existingImageUrlsForEdit.map(img => `<img src="${img}" class="h-16 object-contain border rounded bg-white">`).join('');
+            
             window.scrollTo(0,0);
         }
 
         async function deleteProduct (id) {
-            if(confirm("Are you sure you want to delete this product completely?")) {
+            showCustomConfirm("Delete Product", "Are you sure you want to delete this product completely?", async () => {
                 await deleteDoc(doc(db, "products", id));
-            }
+            });
         }
 
         function renderAdminProducts() {
@@ -1705,6 +2041,7 @@
                     <td class="p-3"><img src="${p.images?.[0] || ''}" class="h-12 w-12 object-contain bg-white rounded border"></td>
                     <td class="p-3 font-semibold text-gray-800">${p.name} <br><span class="text-xs font-normal text-gray-500 bg-gray-100 px-1 rounded">${p.category}</span></td>
                     <td class="p-3">₹${p.realPrice} <br><span class="text-xs text-gray-400 line-through">₹${p.fakePrice}</span></td>
+                    <td class="p-3">${p.deliveryPrice && p.deliveryPrice > 0 ? `₹${p.deliveryPrice}` : 'Free'}</td>
                     <td class="p-3">${p.available ? '<span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-bold">Available</span>' : '<span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-bold">Hidden</span>'}</td>
                     <td class="p-3 text-center">
                         <button onclick="editProduct('${p.id}')" class="text-blue-600 hover:text-blue-800 mr-3 text-lg"><i class="fas fa-edit"></i></button>
@@ -1719,7 +2056,7 @@
             onSnapshot(collection(db, "orders"), (snap) => {
                 const orders = snap.docs.map(d=>({id: d.id, ...d.data()})).sort((a,b)=> new Date(b.date) - new Date(a.date));
                 renderAdminOrders(orders);
-            });
+            }, (err) => console.log("Orders snap load error"));
 
             onSnapshot(collection(db, "chats"), (snap) => {
                 const usersList = E('admin-chat-users');
@@ -1732,15 +2069,16 @@
                     div.onclick = () => openAdminChat(u.userId, u.name, u.aiDisabled);
                     usersList.appendChild(div);
                 });
-            });
+            }, (err) => console.log("Chats snap load error"));
             
-            // Populate settings
             E('setting-upi-id').value = siteSettings.upiId || '';
+            if(siteSettings.upiQR) {
+                E('qr-preview-admin').innerHTML = `<img src="${siteSettings.upiQR}" class="max-h-32 object-contain rounded border bg-white p-1">`;
+            }
         }
 
         function renderAdminOrders(orders) {
             if(orders.length===0) { E('admin-order-list').innerHTML="<div class='bg-white p-4 text-gray-500 rounded border'>No orders yet.</div>"; return;}
-            // Pass global array so modal can access it
             window.allOrdersGlobal = orders; 
             
             E('admin-order-list').innerHTML = orders.map(o => `
@@ -1766,7 +2104,6 @@
             `).join('');
         }
 
-        // Open specific order Modal
         window.openAdminOrderModal = (oid) => {
             const orders = window.allOrdersGlobal || [];
             const o = orders.find(x=>x.id === oid);
@@ -1807,12 +2144,15 @@
             `;
             
             o.items.forEach(i => {
+                const sizeBadge = i.size ? `<span class="bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs ml-2">Option: ${i.size}</span>` : '';
+                const itemDelCharge = i.deliveryPrice && i.deliveryPrice > 0 ? `+ ₹${i.deliveryPrice} Delivery` : 'Free Delivery';
                 html += `
                     <div class="flex gap-3 bg-gray-50 p-2 rounded border">
                         <img src="${i.image}" class="w-16 h-16 object-contain bg-white rounded border">
                         <div>
                             <div class="font-bold text-sm line-clamp-2">${i.name}</div>
-                            <div class="text-gray-600 text-sm">Qty: ${i.qty} x ₹${i.price}</div>
+                            <div class="text-gray-600 text-sm">Qty: ${i.qty} x ₹${i.price} ${sizeBadge}</div>
+                            <div class="text-xs text-blue-600 font-semibold mt-1">${itemDelCharge}</div>
                         </div>
                     </div>
                 `;
@@ -1826,34 +2166,110 @@
 
         async function updateOrderStatus(oid, newStatus) {
             await updateDoc(doc(db, "orders", oid), { status: newStatus });
-            alert('Order Status Updated');
+            showCustomAlert("Updated", 'Order Status Updated successfully!');
         }
 
-        // Admin Settings (Banners, Logo, UPI)
+        // Save Custom Gemini Key
+        E('save-gemini-btn').onclick = async () => {
+            const key = E('setting-gemini-key').value.trim();
+            try {
+                await setDoc(doc(db, "settings", "global"), { geminiApiKey: key }, { merge: true });
+                showCustomAlert("Success", "Custom Gemini API Key saved successfully!");
+            } catch(e) {
+                showCustomAlert("Error", "Could not save Key: " + e.message);
+            }
+        };
+
+        // Admin Settings (UPI & Logo) - Base64 Image Compression System
         E('save-upi-btn').onclick = async () => {
             const upi = E('setting-upi-id').value;
-            await setDoc(doc(db, "settings", "global"), { upiId: upi }, {merge:true});
-            alert("UPI ID Saved!");
+            const upiFile = E('setting-qr-file').files[0];
+            let qrBase64 = siteSettings.upiQR || '';
+            
+            if(upiFile) {
+                try {
+                   E('save-upi-btn').innerText = "Compressing QR...";
+                   qrBase64 = await fileToBase64(upiFile);
+                } catch(e) {
+                   return showCustomAlert("Upload Error", e.message);
+                }
+            }
+
+            await setDoc(doc(db, "settings", "global"), { 
+                upiId: upi,
+                upiQR: qrBase64
+            }, {merge:true});
+            
+            E('save-upi-btn').innerText = "Update UPI Settings";
+            showCustomAlert("Success", "UPI ID and Scanner Settings Updated Successfully!");
         };
 
         E('save-logo-btn').onclick = async () => {
             const file = E('setting-logo').files[0];
-            if(!file) return alert("Select an image first!");
-            const b64 = await fileToBase64(file);
-            await setDoc(doc(db, "settings", "global"), { logo: b64 }, {merge:true});
-            alert("Logo updated successfully!");
+            if(!file) return showCustomAlert("Select Logo", "Select an image file first!");
+            const btn = E('save-logo-btn');
+            btn.innerText = "Compressing...";
+            
+            try {
+                const b64 = await fileToBase64(file);
+                await setDoc(doc(db, "settings", "global"), { logo: b64 }, {merge:true});
+                showCustomAlert("Success", "Logo updated successfully!");
+            } catch(e) {
+                showCustomAlert("Upload Error", e.message);
+            } finally {
+                btn.innerText = "Update Logo";
+            }
         };
 
-        E('save-banners-btn').onclick = async () => {
-            const files = Array.from(E('setting-banners').files);
-            if(files.length === 0) return alert("Select images first!");
-            E('save-banners-btn').innerText = "Uploading...";
-            let bans = [];
-            for(let f of files) bans.push(await fileToBase64(f));
+        // Home Page Banner Manager -> Base64 Compress & Save System
+        function renderBannerLinksManager() {
+            const list = siteSettings.banners || [];
+            const container = E('banner-links-preview-admin');
             
-            await setDoc(doc(db, "settings", "global"), { banners: bans }, {merge:true});
-            E('save-banners-btn').innerText = "Update Banners";
-            alert("Banners updated successfully!");
+            if(list.length === 0) {
+                container.innerHTML = `<span class="text-xs text-gray-400 col-span-full font-semibold">No Banners currently added. Upload images above.</span>`;
+                return;
+            }
+
+            container.innerHTML = list.map((b, idx) => `
+                <div class="border rounded p-2 bg-gray-50 flex flex-col gap-2 relative group shadow-sm">
+                    <img src="${b}" class="w-full h-20 object-cover rounded">
+                    <button onclick="deleteBannerLink(${idx})" class="bg-red-500 hover:bg-red-600 text-white font-bold p-1 rounded text-xs transition uppercase tracking-wider block mt-auto text-center"><i class="fas fa-trash-alt"></i> Remove</button>
+                </div>
+            `).join('');
+        }
+
+        E('add-banner-file-btn').onclick = async () => {
+            const file = E('setting-banner-file').files[0];
+            if(!file) return showCustomAlert("Required", "Please select a banner image file.");
+
+            const btn = E('add-banner-file-btn');
+            btn.innerText = "Compressing Banner...";
+            btn.disabled = true;
+
+            try {
+                const b64 = await fileToBase64(file);
+                const currentBanners = siteSettings.banners || [];
+                currentBanners.push(b64);
+                await setDoc(doc(db, "settings", "global"), { banners: currentBanners }, { merge: true });
+                
+                E('setting-banner-file').value = '';
+                showCustomAlert("Success", "Banner uploaded & compressed successfully!");
+            } catch(e) {
+                showCustomAlert("Upload Error", "Failed to upload banner. " + e.message);
+            } finally {
+                btn.innerText = "Upload & Add Banner";
+                btn.disabled = false;
+            }
+        };
+
+        window.deleteBannerLink = async (idx) => {
+            showCustomConfirm("Remove Banner", "Are you sure you want to remove this banner?", async () => {
+                const currentBanners = [...siteSettings.banners];
+                currentBanners.splice(idx, 1);
+                await setDoc(doc(db, "settings", "global"), { banners: currentBanners }, { merge: true });
+                showCustomAlert("Removed", "Banner successfully removed.");
+            });
         };
 
 
@@ -1868,7 +2284,7 @@
             E('admin-chat-send').disabled = false;
             
             const aiToggle = E('admin-ai-toggle');
-            aiToggle.checked = !aiDisabled; // If not disabled, toggle is true (On)
+            aiToggle.checked = !aiDisabled; 
             
             aiToggle.onchange = async (e) => {
                  await setDoc(doc(db, "chats", uid), { aiDisabled: !e.target.checked }, {merge:true});
@@ -1887,7 +2303,7 @@
                     h.appendChild(div);
                 });
                 h.scrollTop = h.scrollHeight;
-            });
+            }, (err) => console.log("Admin Chat snapshot error"));
         }
 
         E('admin-chat-send').onclick = sendAdminReply;
@@ -1899,7 +2315,6 @@
             const txt = input.value.trim();
             if(!txt) return;
             
-            // Turn off AI auto-reply when admin types manually
             E('admin-ai-toggle').checked = false;
             await setDoc(doc(db, "chats", currentChatUser), { aiDisabled: true }, {merge:true});
             
