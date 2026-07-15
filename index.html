@@ -79,7 +79,8 @@
                     <div class="cursor-pointer font-semibold flex items-center gap-1 hover:text-gray-200" onclick="window.location.hash='#wishlist'">
                         <i class="far fa-heart"></i> <span>Wishlist</span>
                     </div>
-                    <div class="cursor-pointer font-semibold flex items-center gap-1 hover:text-gray-200 relative" onclick="window.location.hash='#cart'">
+                    <!-- Fixed Cart Navigation -->
+                    <div class="cursor-pointer font-semibold flex items-center gap-1 hover:text-gray-200 relative" onclick="goToCartNormal()">
                         <i class="fas fa-shopping-cart"></i> <span>Cart</span>
                         <span id="cart-count" class="absolute -top-2 -right-3 bg-yellow-400 text-black text-xs font-bold px-1.5 py-0.5 rounded-full hidden">0</span>
                     </div>
@@ -392,7 +393,8 @@
                 <i class="fas fa-home text-lg"></i>
                 <span class="text-[10px] font-semibold mt-0.5">Home</span>
             </a>
-            <a href="#cart" class="flex flex-col items-center text-gray-600 hover:text-brand relative transition">
+            <!-- Mobile fixed navigation to standard Cart -->
+            <a href="#" onclick="goToCartNormal(); return false;" class="flex flex-col items-center text-gray-600 hover:text-brand relative transition">
                 <i class="fas fa-shopping-cart text-lg"></i>
                 <span id="mobile-cart-badge" class="absolute -top-1.5 -right-2 bg-yellow-400 text-black text-[9px] font-bold px-1.5 py-0.5 rounded-full hidden">0</span>
                 <span class="text-[10px] font-semibold mt-0.5">Cart</span>
@@ -752,6 +754,10 @@
         let selectedProductSize = null;
         let currentProductOptions = []; // Rich option container array [{name, price}, ...]
 
+        // --- DIRECT BUY (SPECIFIC BUY NOW) LOGIC ---
+        let isDirectBuy = false;
+        let directBuyItem = null;
+
         // Custom UI Modal functions
         function showCustomAlert(title, msg) {
             E('custom-alert-title').innerText = title;
@@ -815,6 +821,27 @@
         window.filterCategory = filterCategory;
         window.cancelOrder = cancelOrder;
         
+        window.removeFromCartItem = (pid, size) => {
+            showCustomConfirm('Remove Item', 'Remove this item from your cart?', () => {
+                if (isDirectBuy) {
+                    directBuyItem = null;
+                    isDirectBuy = false;
+                    window.location.hash = '#home';
+                } else {
+                    cart = cart.filter(i => !(i.pid === pid && (size === null ? !i.size : i.size === size)));
+                    saveUserData();
+                    renderCart();
+                    updateCartCount();
+                }
+            });
+        };
+
+        window.goToCartNormal = () => {
+            isDirectBuy = false;
+            directBuyItem = null;
+            window.location.hash = '#cart';
+        };
+
         window.togglePaymentUI = () => {
             const method = document.querySelector('input[name="payment_method"]:checked').value;
             const sec = E('online-payment-section');
@@ -825,7 +852,8 @@
                 
                 // Real-time Dynamic calculation directly from cart data (considering size custom prices!)
                 let realTotal = 0, totalDeliveryCharge = 0;
-                cart.forEach(item => {
+                let itemsToProcess = isDirectBuy ? (directBuyItem ? [directBuyItem] : []) : cart;
+                itemsToProcess.forEach(item => {
                     const p = products.find(x => x.id === item.pid);
                     if(p) {
                         let finalItemPrice = p.realPrice;
@@ -1510,18 +1538,20 @@
                 }
             }
 
-            const existing = cart.find(i => i.pid === pid && i.size === selectedProductSize);
-            if(existing) {
-                existing.qty += 1;
-            } else {
-                cart.push({pid, qty: 1, size: selectedProductSize});
-            }
-            saveUserData();
-            updateCartCount();
-
             if (buyNow) {
-                window.location.hash = '#checkout';
+                isDirectBuy = true;
+                directBuyItem = { pid: pid, qty: 1, size: selectedProductSize };
+                window.location.hash = '#cart';
             } else {
+                isDirectBuy = false;
+                const existing = cart.find(i => i.pid === pid && i.size === selectedProductSize);
+                if(existing) {
+                    existing.qty += 1;
+                } else {
+                    cart.push({pid, qty: 1, size: selectedProductSize});
+                }
+                saveUserData();
+                updateCartCount();
                 showCustomAlert("Success", "Product added to Cart successfully!");
             }
         }
@@ -1545,19 +1575,34 @@
         }
 
         function updateQty(pid, size, change) {
-            const item = cart.find(i => i.pid === pid && i.size === size);
-            if(item) {
-                item.qty += change;
-                if(item.qty <= 0) cart = cart.filter(i => !(i.pid === pid && i.size === size));
-                saveUserData();
-                renderCart();
-                updateCartCount();
+            if (isDirectBuy) {
+                if (directBuyItem && directBuyItem.pid === pid && directBuyItem.size === size) {
+                    directBuyItem.qty += change;
+                    if (directBuyItem.qty <= 0) {
+                        directBuyItem = null;
+                        isDirectBuy = false;
+                        window.location.hash = '#home';
+                    } else {
+                        renderCart();
+                    }
+                }
+            } else {
+                const item = cart.find(i => i.pid === pid && i.size === size);
+                if(item) {
+                    item.qty += change;
+                    if(item.qty <= 0) cart = cart.filter(i => !(i.pid === pid && i.size === size));
+                    saveUserData();
+                    renderCart();
+                    updateCartCount();
+                }
             }
         }
 
         function renderCart() {
             const container = E('cart-items');
-            if(cart.length === 0) {
+            let itemsToRender = isDirectBuy ? (directBuyItem ? [directBuyItem] : []) : cart;
+
+            if(itemsToRender.length === 0) {
                 container.innerHTML = '<div class="p-10 text-center text-gray-500 flex flex-col items-center"><i class="fas fa-shopping-cart text-6xl text-gray-200 mb-4"></i><p class="text-lg font-bold">Your cart is empty!</p><p class="mb-4">Add items to it now.</p><button onclick="window.location.hash=\'#home\'" class="bg-brand text-white px-8 py-2 rounded shadow">Shop Now</button></div>';
                 E('cart-total-fake').innerText = '₹0';
                 E('cart-total-discount').innerText = '-₹0';
@@ -1572,7 +1617,7 @@
 
             let fakeTotal = 0, realTotal = 0, totalDeliveryCharge = 0;
             let totalItems = 0;
-            container.innerHTML = cart.map(item => {
+            container.innerHTML = itemsToRender.map(item => {
                 const p = products.find(x => x.id === item.pid);
                 if(!p) return ''; 
                 
@@ -1619,7 +1664,7 @@
                         ${!p.available ? '<div class="text-red-500 font-bold text-sm mt-2">Currently out of stock</div>' : ''}
                         
                         <div class="mt-4 flex gap-6">
-                            <button onclick="showCustomConfirm('Remove Item', 'Remove this item from your cart?', () => { cart=cart.filter(i=>!(i.pid==='${p.id}' && i.size===${item.size ? `'${item.size}'` : 'null'})); saveUserData(); renderCart(); updateCartCount(); });" class="font-semibold text-red-500 hover:text-red-700 uppercase text-sm">Remove</button>
+                            <button onclick="removeFromCartItem('${p.id}', ${item.size ? `'${item.size}'` : 'null'})" class="font-semibold text-red-500 hover:text-red-700 uppercase text-sm">Remove</button>
                         </div>
                     </div>
                 </div>`;
@@ -1636,7 +1681,8 @@
         }
 
         E('btn-checkout').onclick = () => {
-            const hasUnavailable = cart.some(i => {
+            let itemsToProcess = isDirectBuy ? (directBuyItem ? [directBuyItem] : []) : cart;
+            const hasUnavailable = itemsToProcess.some(i => {
                 const p = products.find(x => x.id === i.pid);
                 return p && !p.available;
             });
@@ -1747,7 +1793,8 @@
                 }
             }
             
-            const orderItems = cart.map(item => {
+            let itemsToProcess = isDirectBuy ? (directBuyItem ? [directBuyItem] : []) : cart;
+            const orderItems = itemsToProcess.map(item => {
                 const p = products.find(x => x.id === item.pid);
                 let itemPrice = p.realPrice;
                 if (item.size && p.sizes) {
@@ -1802,7 +1849,12 @@
                     await setDoc(doc(db, "users", currentUser.uid), { savedAddress: null }, { merge: true }); 
                 }
 
-                cart = []; 
+                if (isDirectBuy) {
+                    directBuyItem = null;
+                    isDirectBuy = false;
+                } else {
+                    cart = []; 
+                }
                 saveUserData();
                 showCustomAlert("Order Placed", "Congratulations! Your Order has been Placed Successfully!");
                 window.location.hash = '#orders';
